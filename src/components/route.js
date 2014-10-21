@@ -1,9 +1,20 @@
 cgb
     .config(["$stateProvider", "$urlRouterProvider",
         function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise("/group/new");
+            $urlRouterProvider.otherwise("/home");
+
+            var setView = function (path) {
+                return "views/" + path + ".html";
+            };
 
             $stateProvider
+                //home
+                .state("home", {
+                    "url": "/home",
+                    "templateUrl": setView("home"),
+                    "controller": "HomeCtrl"
+                })
+
                 // group
                 .state("group", {
                     "abstract": true,
@@ -12,12 +23,12 @@ cgb
                 })
                 .state("group.new", {
                     "url": "/new",
-                    "templateUrl": "views/group/edit.html",
+                    "templateUrl": setView("group/edit"),
                     "controller": "GroupEditCtrl"
                 })
                 .state("group.edit", {
                     "url": "/edit/:groupId",
-                    "templateUrl": "views/group/edit.html",
+                    "templateUrl": setView("group/edit"),
                     "controller": "GroupEditCtrl"
                 })
 
@@ -29,12 +40,12 @@ cgb
                 })
                 .state("member.new", {
                     "url": "/new",
-                    "templateUrl": "views/member/edit.html",
+                    "templateUrl": setView("member/edit"),
                     "controller": "MemberEditCtrl"
                 })
                 .state("member.edit", {
                     "url": "/edit",
-                    "templateUrl": "views/member/edit.html",
+                    "templateUrl": setView("member/edit"),
                     "controller": "MemberEditCtrl"
                 })
             ;
