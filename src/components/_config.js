@@ -1,9 +1,9 @@
 /*!
  * custom scripts
  */
-var cgm = angular.module("cgm", ["ionic"]);
+var cgb = angular.module("cgb", ["ionic"]);
 
-cgm
+cgb
     .config(["$httpProvider",
         function ($httpProvider) {
             $httpProvider.defaults.xsrfCookieName = "csrftoken";

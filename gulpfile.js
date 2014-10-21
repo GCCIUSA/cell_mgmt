@@ -9,9 +9,7 @@ gulp.task("js", function () {
         .pipe(plugins.uglify({ preserveComments: "some" }));
 
     return streamqueue({ objectMode: true })
-        .queue(lib)
-        .queue(custom)
-        .done()
+        .queue(lib).queue(custom).done()
         .pipe(plugins.concat("script.js"))
         .pipe(gulp.dest("./src/assets/js/"));
 });
@@ -24,9 +22,7 @@ gulp.task("css", function () {
         .pipe(plugins.minifyCss({ keepSpecialComments: 1 }));
 
     return streamqueue({ objectMode: true })
-        .queue(lib)
-        .queue(custom)
-        .done()
+        .queue(lib).queue(custom).done()
         .pipe(plugins.concat("style.css"))
         .pipe(gulp.dest("./src/assets/css/"));
 });

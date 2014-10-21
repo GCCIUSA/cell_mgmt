@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html ng-app="cgm">
+<html ng-app="cgb">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
-    <title>Cell Group Management</title>
+    <title>Cell Group Book</title>
 
     <link rel="stylesheet" href="assets/css/style.css"/>
     <script type="text/javascript" src="assets/js/script.js"></script>
@@ -12,13 +12,20 @@
     <!-- needed for Cordova/PhoneGap (will be a 404 during development) -->
     <script type="text/javascript" src="cordova.js"></script>
 </head>
-<body>
+<body ng-controller="MainCtrl">
     <ion-side-menus>
         <ion-side-menu-content>
-            menu content
+            <ion-header-bar class="bar-dark">
+                <h1 class="title">Cell Group Book</h1>
+            </ion-header-bar>
+            <ion-content>
+                <ui-view/>
+            </ion-content>
         </ion-side-menu-content>
         <ion-side-menu side="left">
-            menu left
+            <ion-header-bar class="bar-dark">
+                <h1 class="title">Projects</h1>
+            </ion-header-bar>
         </ion-side-menu>
     </ion-side-menus>
 </body>

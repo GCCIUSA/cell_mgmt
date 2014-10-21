@@ -1,5 +1,5 @@
 cgb
-    .controller("MainCtrl", ["$scope",
+    .controller("GroupEditCtrl", ["$scope",
         function ($scope) {
 
         }
