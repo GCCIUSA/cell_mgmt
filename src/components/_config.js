@@ -11,33 +11,26 @@ cgb
         }
     ])
 
-    .run(["$rootScope", "$firebase",
-        function ($rootScope, $firebase) {
+    .run(["$rootScope",
+        function ($rootScope) {
             $rootScope.data = {
-                "groups": [
-                    {
-                        "name": "",
-                        "location": "",
-                        "schedule": "",
-                        "members": [
-                            {
-                                "engName": "",
-                                "chnName": "",
-                                "dob": "",
-                                "gender": "",
-                                "email": "",
-                                "phone": ""
-                            }
-                        ]
-                    }
-                ]
+                "group1": {
+                    "name": "",
+                    "lang": "Mandarin",
+                    "location": "",
+                    "schedule": "",
+                    "members": [
+                        {
+                            "engName": "",
+                            "chnName": "",
+                            "dob": "",
+                            "gender": "",
+                            "email": "",
+                            "phone": ""
+                        }
+                    ]
+                }
             };
-
-            // firebase global sync variable
-            $rootScope.fbRef = new Firebase("https://blinding-fire-4264.firebaseio.com");
-            $rootScope.fbSync = $firebase($rootScope.fbRef);
-
-            console.log($rootScope.fbSync.$asArray());
         }
     ])
 ;
