@@ -16,7 +16,7 @@
         <p ng-bind="group.schedule"></p>
     </a>
 </div>
-<div class="row">
+<div class="row" ng-if="loggedIn">
     <div class="col">
         <a class="button button-block button-positive" ui-sref="group.edit({ 'groupId': group.$id })">
             Edit

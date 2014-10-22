@@ -14,6 +14,9 @@ cgb
     .run(["$rootScope",
         function ($rootScope) {
             $rootScope.groupId = "-JZpfbZLUH-Fwxc7IqWN";
+
+            $rootScope.loginPassword = "jesus777";
+            $rootScope.loggedIn = false;
         }
     ])
 ;

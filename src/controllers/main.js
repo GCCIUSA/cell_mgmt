@@ -1,6 +1,6 @@
 cgb
-    .controller("MainCtrl", ["$scope", "$state", "$ionicSideMenuDelegate",
-        function ($scope, $state, $ionicSideMenuDelegate) {
+    .controller("MainCtrl", ["$scope", "$rootScope", "$state", "$ionicSideMenuDelegate",
+        function ($scope, $rootScope, $state, $ionicSideMenuDelegate) {
             $scope.selectMenu = function (state, params) {
                 $state.go(state, params);
                 $ionicSideMenuDelegate.toggleLeft(false);
@@ -8,6 +8,12 @@ cgb
 
             $scope.openMenu = function () {
                 $ionicSideMenuDelegate.toggleLeft();
+            };
+
+            $scope.logout = function () {
+                $rootScope.loggedIn = false;
+                $state.go("group.view", { 'groupId': $rootScope.groupId });
+                $ionicSideMenuDelegate.toggleLeft(false);
             };
         }
     ])

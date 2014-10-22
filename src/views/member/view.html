@@ -20,21 +20,29 @@
         <p ng-bind="member.phone"></p>
     </a>
 </div>
-
-<div class="row">
-    <div class="col">
-        <a class="button button-block button-stable" ui-sref="member.list({ 'groupId': groupId })">Back</a>
+<div ng-if="loggedIn">
+    <div class="row">
+        <div class="col">
+            <a class="button button-block button-stable" ui-sref="member.list({ 'groupId': groupId })">Back</a>
+        </div>
+        <div class="col">
+            <a class="button button-block button-positive" ui-sref="member.edit({'groupId': groupId, 'memberId': member.$id})">
+                Edit
+            </a>
+        </div>
     </div>
-    <div class="col">
-        <a class="button button-block button-positive" ui-sref="member.edit({'groupId': groupId, 'memberId': member.$id})">
-            Edit
-        </a>
+    <div class="row">
+        <div class="col">
+            <a class="button button-block button-assertive" ng-click="remove()">
+                Delete
+            </a>
+        </div>
     </div>
 </div>
-<div class="row">
-    <div class="col">
-        <a class="button button-block button-assertive" ng-click="remove()">
-            Delete
-        </a>
+<div ng-if="!loggedIn">
+    <div class="row">
+        <div class="col">
+            <a class="button button-block button-stable" ui-sref="member.list({ 'groupId': groupId })">Back</a>
+        </div>
     </div>
 </div>

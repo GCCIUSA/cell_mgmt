@@ -106,4 +106,20 @@ cgb
             };
         }
     ])
+
+    .controller("MemberLoginCtrl", ["$scope", "$rootScope", "$state",
+        function ($scope, $rootScope, $state) {
+            $scope.login = function () {
+                if ($scope.password === $rootScope.loginPassword) {
+                    $scope.showErrMsg = false;
+                    $rootScope.loggedIn = true;
+                    $state.go("group.view", { 'groupId': $rootScope.groupId });
+                }
+                else {
+                    $rootScope.loggedIn = false;
+                    $scope.showErrMsg = true;
+                }
+            };
+        }
+    ])
 ;
