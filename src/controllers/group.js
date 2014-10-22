@@ -11,7 +11,8 @@ cgb
                         "name": $scope.group.name,
                         "lang": $scope.group.lang,
                         "location": $scope.group.location,
-                        "schedule": $scope.group.schedule
+                        "schedule": $scope.group.schedule,
+                        "password": $scope.group.password
                     };
 
                     api.group.update(data).then(function (ref) {

@@ -107,18 +107,20 @@ cgb
         }
     ])
 
-    .controller("MemberLoginCtrl", ["$scope", "$rootScope", "$state",
-        function ($scope, $rootScope, $state) {
+    .controller("MemberLoginCtrl", ["$scope", "$rootScope", "$state", "api",
+        function ($scope, $rootScope, $state, api) {
             $scope.login = function () {
-                if ($scope.password === $rootScope.loginPassword) {
-                    $scope.showErrMsg = false;
-                    $rootScope.loggedIn = true;
-                    $state.go("group.view", { 'groupId': $rootScope.groupId });
-                }
-                else {
-                    $rootScope.loggedIn = false;
-                    $scope.showErrMsg = true;
-                }
+                api.group.get().$loaded().then(function (data) {
+                    if ($scope.password === data.password) {
+                        $scope.showErrMsg = false;
+                        $rootScope.loggedIn = true;
+                        $state.go("group.view", { 'groupId': $rootScope.groupId });
+                    }
+                    else {
+                        $rootScope.loggedIn = false;
+                        $scope.showErrMsg = true;
+                    }
+                });
             };
         }
     ])
