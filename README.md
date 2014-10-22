@@ -1,5 +1,25 @@
-cell_mgmt
+Cell Group Book
 =========
+
+## Requirements
+- Node.js
+- Apache Cordova
+- ANT
+- Android SDK
+- Java
+
+Refer to Cordova Document - Platform Guide for details
+
+## Set Up Development Environment
+After all requirements are met, do following:
+
+1. clone repo
+2. run `npm install`
+3. run `gulp compile`
+4. run `cordova platform add android`
+5. run `cordova build android`
+6. run `cordova run android` to build to device/emulator
+
 
 ## Product Backlog
 

@@ -2,4 +2,4 @@
 www/assets
 node_modules
 cgb.iml
-platforms/**
+platforms
