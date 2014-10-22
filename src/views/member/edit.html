@@ -21,7 +21,10 @@
     </label>
 </div>
 <div class="padding">
-    <button class="button button-block button-positive" ng-click="create()">
+    <button class="button button-block button-positive" ng-click="create()" ng-if="isNew">
         Create Member
+    </button>
+    <button class="button button-block button-positive" ng-click="update()" ng-if="!isNew">
+        Done
     </button>
 </div>

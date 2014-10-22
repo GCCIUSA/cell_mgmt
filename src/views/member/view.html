@@ -20,8 +20,16 @@
         <p ng-bind="member.phone"></p>
     </a>
 </div>
-<div class="padding">
-    <a class="button button-block button-positive">
-        Edit Info
-    </a>
+
+<div class="row">
+    <div class="col">
+        <a class="button button-block button-positive" ui-sref="member.edit({'groupId': groupId, 'memberId': member.$id})">
+            Edit Info
+        </a>
+    </div>
+    <div class="col">
+        <a class="button button-block button-assertive" ng-click="remove()">
+            Delete Member
+        </a>
+    </div>
 </div>

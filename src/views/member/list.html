@@ -1,5 +1,5 @@
 <div class="list">
-    <a class="item" ng-repeat="member in members">
+    <a class="item" ng-repeat="member in members" ui-sref="member.view({ 'groupId': groupId, 'memberId': member.$id})">
         <h2 ng-bind="member.cnName"></h2>
         <p>{{formatPhone(member.phone)}}</p>
     </a>

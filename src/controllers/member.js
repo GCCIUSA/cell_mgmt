@@ -23,7 +23,16 @@ cgb
                 $scope.member = api.member.get();
 
                 $scope.update = function () {
-
+                    var data = {
+                        "cnName": $scope.member.cnName,
+                        "enName": $scope.member.enName,
+                        "dob": $scope.member.dob,
+                        "email": $scope.member.email,
+                        "phone": $scope.member.phone
+                    };
+                    api.member.update(data).then(function () {
+                        $state.go("member.list", { "groupId": $state.params.groupId });
+                    });
                 };
             }
             else {
@@ -38,9 +47,17 @@ cgb
         }
     ])
 
-    .controller("MemberViewCtrl", ["$scope",
-        function ($scope) {
+    .controller("MemberViewCtrl", ["$scope", "$state", "api",
+        function ($scope, $state, api) {
+            $scope.member = api.member.get();
 
+            $scope.remove = function () {
+                if (confirm("Are you sure to delete this member?")) {
+                    api.member.delete().then(function () {
+                        $state.go("member.list", { "groupId": $state.params.groupId });
+                    });
+                }
+            };
         }
     ])
 ;
