@@ -1,0 +1,12 @@
+<div class="list">
+    <a class="item" ng-repeat="member in members">
+        <h2 ng-bind="member.cnName"></h2>
+        <p>{{formatPhone(member.phone)}}</p>
+    </a>
+</div>
+
+<div class="padding">
+    <button class="button button-block button-positive" ng-click="addNew()">
+        Add New Member
+    </button>
+</div>

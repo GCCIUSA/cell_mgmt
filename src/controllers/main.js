@@ -1,8 +1,14 @@
 cgb
-    .controller("MainCtrl", ["$scope", "api",
-        function ($scope, api) {
-            api.group.get().$bindTo($scope, "test");
-            setTimeout(function () { console.log(JSON.stringify($scope.test)); }, 2000);
+    .controller("MainCtrl", ["$scope", "$state", "$ionicSideMenuDelegate",
+        function ($scope, $state, $ionicSideMenuDelegate) {
+            $scope.selectMenu = function (state, params) {
+                $state.go(state, params);
+                $ionicSideMenuDelegate.toggleLeft(false);
+            };
+
+            $scope.openMenu = function () {
+                $ionicSideMenuDelegate.toggleLeft();
+            };
         }
     ])
 

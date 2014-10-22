@@ -31,6 +31,11 @@ cgb
                     "templateUrl": setView("group/edit"),
                     "controller": "GroupEditCtrl"
                 })
+                .state("group.view", {
+                    "url": "/view/:groupId",
+                    "templateUrl": setView("group/view"),
+                    "controller": "GroupViewCtrl"
+                })
 
                 // member
                 .state("member", {
@@ -38,15 +43,25 @@ cgb
                     "url": "/member",
                     "template": "<ui-view/>"
                 })
+                .state("member.list", {
+                    "url": "/list/:groupId",
+                    "templateUrl": setView("member/list"),
+                    "controller": "MemberListCtrl"
+                })
                 .state("member.new", {
-                    "url": "/new",
+                    "url": "/new/:groupId",
                     "templateUrl": setView("member/edit"),
                     "controller": "MemberEditCtrl"
                 })
                 .state("member.edit", {
-                    "url": "/edit",
+                    "url": "/edit/:groupId/:memberId",
                     "templateUrl": setView("member/edit"),
                     "controller": "MemberEditCtrl"
+                })
+                .state("member.view", {
+                    "url": "/view/:groupId/:memberId",
+                    "templateUrl": setView("member/view"),
+                    "controller": "MemberViewCtrl"
                 })
             ;
         }
