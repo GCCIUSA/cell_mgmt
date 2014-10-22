@@ -63,6 +63,11 @@ cgb
                     "templateUrl": setView("member/view"),
                     "controller": "MemberViewCtrl"
                 })
+                .state("member.bd", {
+                    "url": "/bd/:groupId",
+                    "templateUrl": setView("member/bd"),
+                    "controller": "MemberBdCtrl"
+                })
             ;
         }
     ])

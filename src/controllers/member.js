@@ -17,6 +17,19 @@ cgb
 
     .controller("MemberEditCtrl", ["$scope", "$state", "api",
         function ($scope, $state, api) {
+            var formatDob = function (dob) {
+                var splitted = dob.split("/");
+
+                if (dob.substr(0, 1) === "0") {
+                    dob = dob.substr(1);
+                }
+                if (splitted[1].substr(0, 1) === "0") {
+                    dob = splitted[0] + "/" + splitted[1].substr(1);
+                }
+
+                return dob;
+            };
+
             if ($state.current.name === "member.edit") {
                 $scope.isNew = false;
 
@@ -26,7 +39,7 @@ cgb
                     var data = {
                         "cnName": $scope.member.cnName,
                         "enName": $scope.member.enName,
-                        "dob": $scope.member.dob,
+                        "dob": formatDob($scope.member.dob),
                         "email": $scope.member.email,
                         "phone": $scope.member.phone
                     };
@@ -39,6 +52,7 @@ cgb
                 $scope.isNew = true;
 
                 $scope.create = function () {
+                    $scope.member.dob = formatDob($scope.member.dob);
                     api.member.create($scope.member).then(function () {
                         $state.go("member.list", { "groupId": $state.params.groupId });
                     });
@@ -57,6 +71,38 @@ cgb
                         $state.go("member.list", { "groupId": $state.params.groupId });
                     });
                 }
+            };
+        }
+    ])
+
+    .controller("MemberBdCtrl", ["$scope", "api", "util",
+        function ($scope, api, util) {
+            var i;
+
+            $scope.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Unknown"];
+            $scope.bdList = new Array($scope.months.length);
+            for (i = 0; i < $scope.bdList.length; i++) {
+                $scope.bdList[i] = [];
+            }
+
+            api.member.list().then(function (data) {
+                for (i = 0; i < data.length; i++) {
+                    if (data[i].dob !== undefined) {
+                        $scope.bdList[data[i].dob.split("/")[0] - 1].push(data[i]);
+                    }
+                    else {
+                        $scope.bdList[$scope.bdList.length - 1].push(data[i]);
+                    }
+                }
+                for (i = 0; i < $scope.bdList.length; i++) {
+                    $scope.bdList[i].sort(function (a, b) {
+                        return a.dob.split("/")[1] - b.dob.split("/")[1];
+                    });
+                }
+            });
+
+            $scope.showName = function (member) {
+                return util.showName(member);
             };
         }
     ])

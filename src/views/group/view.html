@@ -16,11 +16,10 @@
         <p ng-bind="group.schedule"></p>
     </a>
 </div>
-<div class="padding">
-    <a class="button button-block button-positive" ui-sref="group.edit({ 'groupId': group.$id })">
-        Edit Info
-    </a>
-    <a class="button button-block button-positive" ui-sref="member.list({ 'groupId': group.$id })">
-        Show Members
-    </a>
+<div class="row">
+    <div class="col">
+        <a class="button button-block button-positive" ui-sref="group.edit({ 'groupId': group.$id })">
+            Edit
+        </a>
+    </div>
 </div>

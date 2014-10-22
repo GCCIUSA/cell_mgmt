@@ -23,13 +23,18 @@
 
 <div class="row">
     <div class="col">
-        <a class="button button-block button-positive" ui-sref="member.edit({'groupId': groupId, 'memberId': member.$id})">
-            Edit Info
-        </a>
+        <a class="button button-block button-stable" ui-sref="member.list({ 'groupId': groupId })">Back</a>
     </div>
     <div class="col">
+        <a class="button button-block button-positive" ui-sref="member.edit({'groupId': groupId, 'memberId': member.$id})">
+            Edit
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
         <a class="button button-block button-assertive" ng-click="remove()">
-            Delete Member
+            Delete
         </a>
     </div>
 </div>
