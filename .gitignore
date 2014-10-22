@@ -1,4 +1,5 @@
-cell_mgmt.iml
 .idea
-src/assets
+www/assets
 node_modules
+cgb.iml
+platforms/**

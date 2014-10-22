@@ -3,40 +3,40 @@ var plugins = require("gulp-load-plugins")();
 var streamqueue = require("streamqueue");
 
 gulp.task("js", function () {
-    var lib = gulp.src(["src/libs/ionic/js/ionic.bundle.min.js", "src/libs/firebase/firebase.js", "src/libs/firebase/angularfire.min.js"]);
+    var lib = gulp.src(["www/libs/ionic/js/ionic.bundle.min.js", "www/libs/firebase/firebase.js", "www/libs/firebase/angularfire.min.js"]);
 
-    var custom = gulp.src(["src/components/*.js", "src/controllers/*.js"])
+    var custom = gulp.src(["www/components/*.js", "www/controllers/*.js"])
         .pipe(plugins.uglify({ preserveComments: "some" }));
 
     return streamqueue({ objectMode: true })
         .queue(lib).queue(custom).done()
         .pipe(plugins.concat("script.js"))
-        .pipe(gulp.dest("./src/assets/js/"));
+        .pipe(gulp.dest("./www/assets/js/"));
 });
 
 gulp.task("css", function () {
-    var lib = gulp.src("src/libs/ionic/css/ionic.min.css");
+    var lib = gulp.src("www/libs/ionic/css/ionic.min.css");
 
-    var custom = gulp.src("src/styles/*.less")
+    var custom = gulp.src("www/styles/*.less")
         .pipe(plugins.less())
         .pipe(plugins.minifyCss({ keepSpecialComments: 1 }));
 
     return streamqueue({ objectMode: true })
         .queue(lib).queue(custom).done()
         .pipe(plugins.concat("style.css"))
-        .pipe(gulp.dest("./src/assets/css/"));
+        .pipe(gulp.dest("./www/assets/css/"));
 });
 
 gulp.task("fonts", function () {
-    return gulp.src("src/libs/ionic/fonts/*")
-        .pipe(gulp.dest("./src/assets/fonts/"));
+    return gulp.src("www/libs/ionic/fonts/*")
+        .pipe(gulp.dest("./www/assets/fonts/"));
 });
 
 gulp.task("watch", function () {
     plugins.livereload.listen();
-    gulp.watch("src/styles/*.less", ["css"]).on("change", plugins.livereload.changed);
-    gulp.watch(["src/components/*.js", "src/controllers/*.js"], ["js"]).on("change", plugins.livereload.changed);
-    gulp.watch(["src/**/*.html"]).on("change", plugins.livereload.changed);
+    gulp.watch("www/styles/*.less", ["css"]).on("change", plugins.livereload.changed);
+    gulp.watch(["www/components/*.js", "www/controllers/*.js"], ["js"]).on("change", plugins.livereload.changed);
+    gulp.watch(["www/**/*.html"]).on("change", plugins.livereload.changed);
 });
 
 gulp.task("compile", ["css", "js", "fonts"]);
