@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.whinec.apps.cordova" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>HelloCordova</name>
+<widget id="com.whinec.apps.cgb" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Cell Group Book</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        A simple app to view and manage church cell group.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="pzmosquito@gmail.com">
+        PZ
     </author>
     <content src="index.html" />
     <access origin="*" />
