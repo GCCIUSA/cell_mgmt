@@ -11,11 +11,15 @@ cgb
         }
     ])
 
-    .run(["$rootScope",
-        function ($rootScope) {
+    .run(["$rootScope", "$ionicScrollDelegate",
+        function ($rootScope, $ionicScrollDelegate) {
             $rootScope.groupId = "-JZpfbZLUH-Fwxc7IqWN";
 
             $rootScope.loggedIn = false;
+
+            $rootScope.$on("$stateChangeStart", function () {
+                $ionicScrollDelegate.scrollTop(true);
+            });
         }
     ])
 ;
