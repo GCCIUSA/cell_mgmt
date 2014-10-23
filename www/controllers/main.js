@@ -11,23 +11,19 @@ cgb
                         }
                     }, "Confirm", "Cancel,OK");
                 }
+                // group views
                 else if (state === "group.view") {
                    $state.go("home");
                 }
                 else if (state === "group.edit") {
-                   $state.go("group.view", { 'groupId': $rootScope.groupId });
+                    navigator.app.backHistory();
                 }
-                else if (state === "member.list") {
+                // member views
+                else if (state === "member.list" || state === "member.bd" || state === "member.login") {
                    $state.go("home");
                 }
-                else if (state === "member.view") {
-                   $state.go("member.list", { 'groupId': $rootScope.groupId });
-                }
-                else if (state === "member.edit") {
+                else if (state === "member.view" || state === "member.edit") {
                    navigator.app.backHistory();
-                }
-                else if (state === "member.bd" || state === "member.login") {
-                   $state.go("home");
                 }
             }, 100);
 
