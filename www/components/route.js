@@ -27,12 +27,12 @@ cgb
                     "controller": "GroupEditCtrl"
                 })
                 .state("group.edit", {
-                    "url": "/edit/:groupId",
+                    "url": "/edit",
                     "templateUrl": setView("group/edit"),
                     "controller": "GroupEditCtrl"
                 })
                 .state("group.view", {
-                    "url": "/view/:groupId",
+                    "url": "/view",
                     "templateUrl": setView("group/view"),
                     "controller": "GroupViewCtrl"
                 })
@@ -44,32 +44,32 @@ cgb
                     "template": "<ui-view/>"
                 })
                 .state("member.list", {
-                    "url": "/list/:groupId",
+                    "url": "/list",
                     "templateUrl": setView("member/list"),
                     "controller": "MemberListCtrl"
                 })
                 .state("member.new", {
-                    "url": "/new/:groupId",
+                    "url": "/new",
                     "templateUrl": setView("member/edit"),
                     "controller": "MemberEditCtrl"
                 })
                 .state("member.edit", {
-                    "url": "/edit/:groupId/:memberId",
+                    "url": "/edit/:memberId",
                     "templateUrl": setView("member/edit"),
                     "controller": "MemberEditCtrl"
                 })
                 .state("member.view", {
-                    "url": "/view/:groupId/:memberId",
+                    "url": "/view/:memberId",
                     "templateUrl": setView("member/view"),
                     "controller": "MemberViewCtrl"
                 })
                 .state("member.bd", {
-                    "url": "/bd/:groupId",
+                    "url": "/bd",
                     "templateUrl": setView("member/bd"),
                     "controller": "MemberBdCtrl"
                 })
                 .state("member.login", {
-                    "url": "/login/:groupId",
+                    "url": "/login",
                     "templateUrl": setView("member/login"),
                     "controller": "MemberLoginCtrl"
                 })

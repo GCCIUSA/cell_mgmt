@@ -1,10 +1,10 @@
 cgb
-    .controller("GroupEditCtrl", ["$scope", "$state", "api",
-        function ($scope, $state, api) {
+    .controller("GroupEditCtrl", ["$scope", "$rootScope", "$state", "api",
+        function ($scope, $rootScope, $state, api) {
             if ($state.current.name === "group.edit") {
                 $scope.isNew = false;
 
-                $scope.group = api.group.get();
+                $scope.group = $rootScope.data.group;
 
                 $scope.update = function () {
                     var data = {
@@ -15,8 +15,9 @@ cgb
                         "password": $scope.group.password
                     };
 
-                    api.group.update(data).then(function (ref) {
-                        $state.go("group.view", { "groupId": ref.name() });
+                    api.group.update(data).then(function () {
+                        $scope.$emit("DATA_RELOAD", "group");
+                        $state.go("group.view");
                     });
                 };
             }
@@ -26,7 +27,9 @@ cgb
                 $scope.create = function () {
                     if (confirm("Are you sure to create this group?")) {
                         api.group.create($scope.group).then(function (ref) {
-                            $state.go("group.view", { "groupId": ref.name() });
+                            $rootScope.groupId = ref.name();
+                            $scope.$emit("DATA_RELOAD", "group");
+                            $state.go("group.view");
                         });
                     }
                 };
@@ -36,7 +39,7 @@ cgb
 
     .controller("GroupViewCtrl", ["$scope", "api",
         function ($scope, api) {
-            $scope.group = api.group.get();
+
         }
     ])
 ;

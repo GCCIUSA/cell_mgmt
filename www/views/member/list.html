@@ -1,10 +1,10 @@
 <div class="padding" ng-if="loggedIn">
-    <button class="button button-block button-positive" ng-click="addNew()">
+    <a class="button button-block button-positive" ui-sref="member.new">
         Add New Member
-    </button>
+    </a>
 </div>
 <div class="list">
-    <a class="item" ng-repeat="member in members" ui-sref="member.view({ 'groupId': groupId, 'memberId': member.$id})">
+    <a class="item" ng-repeat="member in data.members" ui-sref="member.view({ 'groupId': groupId, 'memberId': member.$id})">
         <h2 ng-if="member.cnName !== undefined && member.enName !== undefined">{{member.cnName}} ({{member.enName}})</h2>
         <h2 ng-if="member.enName === undefined">{{member.cnName}}</h2>
         <h2 ng-if="member.cnName === undefined">{{member.enName}}</h2>

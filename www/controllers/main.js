@@ -1,6 +1,7 @@
 cgb
-    .controller("MainCtrl", ["$scope", "$rootScope", "$state", "$ionicSideMenuDelegate", "$ionicPlatform",
-        function ($scope, $rootScope, $state, $ionicSideMenuDelegate, $ionicPlatform) {
+    .controller("MainCtrl", ["$scope", "$rootScope", "$state", "$ionicSideMenuDelegate", "$ionicPlatform", "api",
+        function ($scope, $rootScope, $state, $ionicSideMenuDelegate, $ionicPlatform, api) {
+            // override and register hardware back button behavior
             $ionicPlatform.registerBackButtonAction(function () {
                 var state = $state.current.name;
                 if (state === "home") {
@@ -30,18 +31,36 @@ cgb
                 }
             }, 100);
 
-            $scope.selectMenu = function (state, params) {
-                $state.go(state, params);
+            // reload the master data
+            $scope.$on("DATA_RELOAD", function (event, type) {
+                if (type === undefined || type === "group") {
+                    api.group.get().$loaded().then(function (data) {
+                        $rootScope.data.group = data;
+                    });
+                }
+                if (type === undefined || type === "members") {
+                    api.member.list().$loaded().then(function (data) {
+                        $rootScope.data.members = data;
+                    });
+                }
+            });
+            $scope.$emit("DATA_RELOAD");
+
+            // selecting an item from left slide menu
+            $scope.selectMenu = function (state) {
+                $state.go(state);
                 $ionicSideMenuDelegate.toggleLeft(false);
             };
 
+            // manually open the left slide menu
             $scope.openMenu = function () {
-                $ionicSideMenuDelegate.toggleLeft();
+                $ionicSideMenuDelegate.toggleLeft(true);
             };
 
+            // logout current user
             $scope.logout = function () {
                 $rootScope.loggedIn = false;
-                $state.go("group.view", { 'groupId': $rootScope.groupId });
+                $state.go("group.view");
                 $ionicSideMenuDelegate.toggleLeft(false);
             };
         }

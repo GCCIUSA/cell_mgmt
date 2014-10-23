@@ -1,50 +1,31 @@
 cgb
-    .controller("MemberListCtrl", ["$scope", "$state", "api", "util",
-        function ($scope, $state, api, util) {
-            api.member.list().then(function (data) {
-                $scope.members = data;
-            });
-
+    .controller("MemberListCtrl", ["$scope", "util",
+        function ($scope, util) {
             $scope.formatPhone = function (phone) {
                 return util.formatPhone(phone);
-            };
-
-            $scope.addNew = function () {
-                $state.go("member.new", { "groupId": $state.params.groupId });
             };
         }
     ])
 
-    .controller("MemberEditCtrl", ["$scope", "$state", "api",
-        function ($scope, $state, api) {
-            var formatDob = function (dob) {
-                var splitted = dob.split("/");
-
-                if (dob.substr(0, 1) === "0") {
-                    dob = dob.substr(1);
-                }
-                if (splitted[1].substr(0, 1) === "0") {
-                    dob = splitted[0] + "/" + splitted[1].substr(1);
-                }
-
-                return dob;
-            };
-
+    .controller("MemberEditCtrl", ["$scope", "$rootScope", "$state", "api", "util",
+        function ($scope, $rootScope, $state, api, util) {
             if ($state.current.name === "member.edit") {
                 $scope.isNew = false;
 
-                $scope.member = api.member.get();
+                $scope.member = util.getMember($state.params.memberId);
 
+                // TODO update undefined field
                 $scope.update = function () {
                     var data = {
                         "cnName": $scope.member.cnName,
                         "enName": $scope.member.enName,
-                        "dob": formatDob($scope.member.dob),
+                        "dob": util.formatDob($scope.member.dob),
                         "email": $scope.member.email,
                         "phone": $scope.member.phone
                     };
                     api.member.update(data).then(function () {
-                        $state.go("member.list", { "groupId": $state.params.groupId });
+                        $scope.$emit("DATA_RELOAD", "members");
+                        $state.go("member.list");
                     });
                 };
             }
@@ -52,31 +33,33 @@ cgb
                 $scope.isNew = true;
 
                 $scope.create = function () {
-                    $scope.member.dob = formatDob($scope.member.dob);
+                    $scope.member.dob = util.formatDob($scope.member.dob);
                     api.member.create($scope.member).then(function () {
-                        $state.go("member.list", { "groupId": $state.params.groupId });
+                        $scope.$emit("DATA_RELOAD", "members");
+                        $state.go("member.list");
                     });
                 };
             }
         }
     ])
 
-    .controller("MemberViewCtrl", ["$scope", "$state", "api",
-        function ($scope, $state, api) {
-            $scope.member = api.member.get();
+    .controller("MemberViewCtrl", ["$scope", "$state", "api", "util",
+        function ($scope, $state, api, util) {
+            $scope.member = util.getMember($state.params.memberId);
 
             $scope.remove = function () {
                 if (confirm("Are you sure to delete this member?")) {
                     api.member.delete().then(function () {
-                        $state.go("member.list", { "groupId": $state.params.groupId });
+                        $scope.$emit("DATA_RELOAD", "members");
+                        $state.go("member.list");
                     });
                 }
             };
         }
     ])
 
-    .controller("MemberBdCtrl", ["$scope", "api", "util",
-        function ($scope, api, util) {
+    .controller("MemberBdCtrl", ["$scope", "$rootScope", "util",
+        function ($scope, $rootScope, util) {
             var i;
 
             $scope.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Unknown"];
@@ -85,21 +68,19 @@ cgb
                 $scope.bdList[i] = [];
             }
 
-            api.member.list().then(function (data) {
-                for (i = 0; i < data.length; i++) {
-                    if (data[i].dob !== undefined) {
-                        $scope.bdList[data[i].dob.split("/")[0] - 1].push(data[i]);
-                    }
-                    else {
-                        $scope.bdList[$scope.bdList.length - 1].push(data[i]);
-                    }
+            for (i = 0; i < $rootScope.data.members.length; i++) {
+                if ($rootScope.data.members[i].dob !== undefined) {
+                    $scope.bdList[$rootScope.data.members[i].dob.split("/")[0] - 1].push($rootScope.data.members[i]);
                 }
-                for (i = 0; i < $scope.bdList.length; i++) {
-                    $scope.bdList[i].sort(function (a, b) {
-                        return a.dob.split("/")[1] - b.dob.split("/")[1];
-                    });
+                else {
+                    $scope.bdList[$scope.bdList.length - 1].push($rootScope.data.members[i]);
                 }
-            });
+            }
+            for (i = 0; i < $scope.bdList.length; i++) {
+                $scope.bdList[i].sort(function (a, b) {
+                    return a.dob.split("/")[1] - b.dob.split("/")[1];
+                });
+            }
 
             $scope.showName = function (member) {
                 return util.showName(member);
@@ -114,7 +95,7 @@ cgb
                     if ($scope.password === data.password) {
                         $scope.showErrMsg = false;
                         $rootScope.loggedIn = true;
-                        $state.go("group.view", { 'groupId': $rootScope.groupId });
+                        $state.go("group.view");
                     }
                     else {
                         $rootScope.loggedIn = false;

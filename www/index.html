@@ -34,10 +34,10 @@
                     </div>
                 </div>
                 <div class="list">
-                    <a class="item" ng-click="selectMenu('group.view', { 'groupId': groupId })">Group Info</a>
-                    <a class="item" ng-click="selectMenu('member.list', { 'groupId': groupId })">Members</a>
-                    <a class="item" ng-click="selectMenu('member.bd', { 'groupId': groupId })">Birthday List</a>
-                    <a class="item" ng-click="selectMenu('member.login', { 'groupId': groupId })" ng-if="!loggedIn">Admin Login</a>
+                    <a class="item" ng-click="selectMenu('group.view')">Group Info</a>
+                    <a class="item" ng-click="selectMenu('member.list')">Members</a>
+                    <a class="item" ng-click="selectMenu('member.bd')">Birthday List</a>
+                    <a class="item" ng-click="selectMenu('member.login')" ng-if="!loggedIn">Admin Login</a>
                     <a class="item" ng-click="logout()" ng-if="loggedIn">Admin Logout</a>
                 </div>
             </ion-content>
