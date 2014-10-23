@@ -47,6 +47,10 @@ cgb
         function ($scope, $state, api, util) {
             $scope.member = util.getMember($state.params.memberId);
 
+            $scope.formatPhone = function (phone) {
+                return util.formatPhone(phone);
+            };
+
             $scope.remove = function () {
                 if (confirm("Are you sure to delete this member?")) {
                     api.member.delete().then(function () {
