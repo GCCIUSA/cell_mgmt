@@ -93,10 +93,12 @@ cgb
         }
     ])
 
-    .controller("MemberLoginCtrl", ["$scope", "$rootScope", "$state", "api",
-        function ($scope, $rootScope, $state, api) {
+    .controller("MemberLoginCtrl", ["$scope", "$rootScope", "$state", "api", "$ionicLoading",
+        function ($scope, $rootScope, $state, api, $ionicLoading) {
             $scope.login = function () {
+                $ionicLoading.show({ "template": "<i class='icon ion-refreshing'></i>" });
                 api.group.get().$loaded().then(function (data) {
+                    $ionicLoading.hide();
                     if ($scope.password === data.password) {
                         $scope.showErrMsg = false;
                         $rootScope.loggedIn = true;

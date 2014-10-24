@@ -3,6 +3,7 @@ cgb
         function ($scope, $rootScope, $state, $ionicSideMenuDelegate, $ionicPlatform, $ionicLoading, api) {
             // override and register hardware back button behavior
             $ionicPlatform.registerBackButtonAction(function () {
+                $ionicLoading.hide();
                 var state = $state.current.name;
                 if (state === "home") {
                     navigator.notification.confirm("Exit the app?", function (btnIndex) {
@@ -79,10 +80,10 @@ cgb
                 };
             });
 
-            $scope.refresh = function () {
+            $scope.reload = function () {
                 $scope.$emit("DATA_RELOAD");
             };
-            $scope.refresh();
+            $scope.reload();
 
             // selecting an item from left slide menu
             $scope.selectMenu = function (state) {
