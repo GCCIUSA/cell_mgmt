@@ -51,7 +51,7 @@ cgb
             };
 
             $scope.remove = function () {
-                navigator.notification.confirm("Are you sure to delete " + util.getName($scope.getMemberName) + "?", function (btnIndex) {
+                navigator.notification.confirm("確認刪除：" + util.getMemberName($scope.member) + "?", function (btnIndex) {
                     if (btnIndex === 2) {
                         api.member.delete($state.params.memberId).then(function () {
                             $scope.$emit("DATA_RELOAD", "members");

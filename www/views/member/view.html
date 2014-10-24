@@ -1,40 +1,40 @@
 <div class="list">
     <a class="item">
-        <h2>Chinese Name</h2>
+        <h2>中文名</h2>
         <p ng-bind="member.cnName"></p>
     </a>
     <a class="item">
-        <h2>English Name</h2>
+        <h2>英文名</h2>
         <p ng-bind="member.enName"></p>
     </a>
     <a class="item">
-        <h2>Date of Birth</h2>
+        <h2>生日</h2>
         <p ng-bind="member.dob"></p>
     </a>
     <a class="item">
-        <h2>Email</h2>
+        <h2>電子郵件</h2>
         <p ng-bind="member.email"></p>
     </a>
     <a class="item">
-        <h2>Phone</h2>
+        <h2>電話號碼</h2>
         <p ng-bind="formatPhone(member.phone)"></p>
     </a>
 </div>
 <div ng-if="loggedIn">
     <div class="row">
         <div class="col">
-            <a class="button button-block button-stable" ui-sref="member.list">Back</a>
+            <a class="button button-block button-stable" ui-sref="member.list">返回</a>
         </div>
         <div class="col">
             <a class="button button-block button-positive" ui-sref="member.edit({ 'memberId': member.$id })">
-                Edit
+                修改
             </a>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <a class="button button-block button-assertive" ng-click="remove()">
-                Delete
+            <a class="button button-block button-assertive ion-trash-b" ng-click="remove()">
+                刪除組員
             </a>
         </div>
     </div>
@@ -42,7 +42,7 @@
 <div ng-if="!loggedIn">
     <div class="row">
         <div class="col">
-            <a class="button button-block button-stable" ui-sref="member.list">Back</a>
+            <a class="button button-block button-stable" ui-sref="member.list">返回</a>
         </div>
     </div>
 </div>

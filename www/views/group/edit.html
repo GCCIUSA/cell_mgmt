@@ -1,39 +1,39 @@
 <div class="list">
     <label class="item item-input item-stacked-label">
-        <span class="input-label">Name</span>
+        <span class="input-label">小組名稱</span>
         <input type="text" ng-model="group.name">
     </label>
     <label class="item item-input item-stacked-label">
-        <span class="input-label">Language</span>
+        <span class="input-label">主要語言</span>
         <input type="text" ng-model="group.lang">
     </label>
     <label class="item item-input item-stacked-label">
-        <span class="input-label">Location</span>
+        <span class="input-label">聚會地點</span>
         <input type="text" ng-model="group.location">
     </label>
     <label class="item item-input item-stacked-label">
-        <span class="input-label">Schedule</span>
+        <span class="input-label">聚會時間</span>
         <input type="text" ng-model="group.schedule">
     </label>
     <label class="item item-input item-stacked-label">
-        <span class="input-label">Admin Password</span>
+        <span class="input-label">管理員密碼</span>
         <input type="text" ng-model="group.password">
     </label>
 </div>
 <div class="row" ng-if="isNew">
     <div class="col">
         <button class="button button-block button-positive" ng-click="create()">
-            Create Cell Group
+            創建新小組
         </button>
     </div>
 </div>
 <div class="row" ng-if="!isNew">
     <div class="col">
-        <a class="button button-block button-stable" ui-sref="group.view">Back</a>
+        <a class="button button-block button-stable" ui-sref="group.view">返回</a>
     </div>
     <div class="col">
         <button class="button button-block button-positive" ng-click="update()">
-            Update
+            完成修改
         </button>
     </div>
 </div>
