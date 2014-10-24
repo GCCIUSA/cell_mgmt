@@ -17,7 +17,7 @@
         <ion-side-menu-content>
             <ion-header-bar class="bar-dark">
                 <button class="button button-icon icon ion-navicon" ng-click="toggleMenu()"></button>
-                <h1 class="title">Cell Group Book</h1>
+                <h1 class="title">{{data.group.name}}</h1>
                 <div class="buttons"><button class="button button-icon icon ion-refresh" ng-click="refresh()"></button></div>
             </ion-header-bar>
             <ion-content>
@@ -26,15 +26,14 @@
         </ion-side-menu-content>
         <ion-side-menu side="left">
             <ion-header-bar class="bar-dark">
-                <h1 class="title">Menu</h1>
+                <h1 class="title">Cell Group Book</h1>
             </ion-header-bar>
             <ion-content>
-                <div class="card">
-                    <div class="item item-text-wrap">
-                        <div class="text-left">組長: Kevin, Ivy</div>
-                    </div>
+                <div class="padding">
+                    <img src="assets/imgs/set_logo.jpg" style="max-height: 100%; max-width: 100%;"/>
                 </div>
                 <div class="list">
+                    <a class="item" ng-click="selectMenu('home')">主界面</a>
                     <a class="item" ng-click="selectMenu('group.view')">小組信息</a>
                     <a class="item" ng-click="selectMenu('member.list')">成員列表</a>
                     <a class="item" ng-click="selectMenu('member.bd')">成員生日表</a>
@@ -44,7 +43,7 @@
                 </div>
             </ion-content>
             <ion-footer-bar class="bar-stable">
-                Created by PZ
+                <h1 class="title">Created by PZ</h1>
             </ion-footer-bar>
         </ion-side-menu>
     </ion-side-menus>

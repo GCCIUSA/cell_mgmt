@@ -32,6 +32,11 @@ gulp.task("fonts", function () {
         .pipe(gulp.dest("./www/assets/fonts/"));
 });
 
+gulp.task("images", function () {
+    return gulp.src("www/imgs/*")
+        .pipe(gulp.dest("./www/assets/imgs/"));
+});
+
 gulp.task("watch", function () {
     plugins.livereload.listen();
     gulp.watch("www/styles/*.less", ["css"]).on("change", plugins.livereload.changed);
@@ -39,4 +44,4 @@ gulp.task("watch", function () {
     gulp.watch(["www/**/*.html"]).on("change", plugins.livereload.changed);
 });
 
-gulp.task("compile", ["css", "js", "fonts"]);
+gulp.task("compile", ["css", "js", "fonts", "images"]);
