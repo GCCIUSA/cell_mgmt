@@ -26,11 +26,11 @@ cgb
                    navigator.app.backHistory();
                 }
                 // bank views
-                else if (state === "bank.view") {
+                else if (state === "bank.list") {
                     $state.go("home");
                 }
-                else if (state === "bank.income" || state === "bank.expense") {
-                    $state.go("bank.view");
+                else if (state === "bank.view" || state === "bank.edit") {
+                    navigator.app.backHistory();
                 }
             }, 100);
 
