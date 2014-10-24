@@ -17,7 +17,7 @@ cgb
             $rootScope.groupId = "-JZpfbZLUH-Fwxc7IqWN";
 
             // master data that holds the entire firebase obj
-            $rootScope.data = { "group": null, "members": null };
+            $rootScope.data = { "group": null, "members": null, "bank": null, "balance": null };
 
             // determines if the user is logged in
             $rootScope.loggedIn = false;

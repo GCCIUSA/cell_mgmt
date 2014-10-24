@@ -73,6 +73,28 @@ cgb
                     "templateUrl": setView("member/login"),
                     "controller": "MemberLoginCtrl"
                 })
+
+                // bank
+                .state("bank", {
+                    "abstract": true,
+                    "url": "/bank",
+                    "template": "<ui-view/>"
+                })
+                .state("bank.list", {
+                    "url": "/list",
+                    "templateUrl": setView("bank/list"),
+                    "controller": "BankListCtrl"
+                })
+                .state("bank.view", {
+                    "url": "/view/:transactionId",
+                    "templateUrl": setView("bank/view"),
+                    "controller": "BankViewCtrl"
+                })
+                .state("bank.edit", {
+                    "url": "/edit/:transactionId",
+                    "templateUrl": setView("bank/edit"),
+                    "controller": "BankEditCtrl"
+                })
             ;
         }
     ])

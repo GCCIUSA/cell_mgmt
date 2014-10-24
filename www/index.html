@@ -16,7 +16,7 @@
     <ion-side-menus>
         <ion-side-menu-content>
             <ion-header-bar class="bar-dark">
-                <button class="button button-icon icon ion-navicon" ng-click="openMenu()"></button>
+                <button class="button button-icon icon ion-navicon" ng-click="toggleMenu()"></button>
                 <h1 class="title">Cell Group Book</h1>
             </ion-header-bar>
             <ion-content>
@@ -30,15 +30,16 @@
             <ion-content>
                 <div class="card">
                     <div class="item item-text-wrap">
-                        <div class="text-left">Leader: Kevin, Ivy</div>
+                        <div class="text-left">組長: Kevin, Ivy</div>
                     </div>
                 </div>
                 <div class="list">
-                    <a class="item" ng-click="selectMenu('group.view')">Group Info</a>
-                    <a class="item" ng-click="selectMenu('member.list')">Members</a>
-                    <a class="item" ng-click="selectMenu('member.bd')">Birthday List</a>
-                    <a class="item" ng-click="selectMenu('member.login')" ng-if="!loggedIn">Admin Login</a>
-                    <a class="item" ng-click="logout()" ng-if="loggedIn">Admin Logout</a>
+                    <a class="item" ng-click="selectMenu('group.view')">小組信息</a>
+                    <a class="item" ng-click="selectMenu('member.list')">成員列表</a>
+                    <a class="item" ng-click="selectMenu('member.bd')">成員生日表</a>
+                    <a class="item" ng-click="selectMenu('bank.list')">小組經費</a>
+                    <a class="item" ng-click="selectMenu('member.login')" ng-if="!loggedIn">管理員登錄</a>
+                    <a class="item" ng-click="logout()" ng-if="loggedIn">管理員登出</a>
                 </div>
             </ion-content>
             <ion-footer-bar class="bar-stable">

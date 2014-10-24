@@ -10,6 +10,7 @@ cgb
                     },
                     "create": function (data) {
                         data["members"] = {};
+                        data["bank"] = {};
                         return $firebase(ref).$push(data);
                     },
                     "update": function (data) {
@@ -31,6 +32,20 @@ cgb
                     },
                     "delete": function (memberId) {
                         return $firebase(ref.child($rootScope.groupId + "/members")).$remove(memberId);
+                    }
+                },
+                "bank": {
+                    "list": function () {
+                        return $firebase(ref.child($rootScope.groupId + "/bank")).$asArray();
+                    },
+                    "create": function (data) {
+                        return $firebase(ref.child($rootScope.groupId + "/bank")).$push(data);
+                    },
+                    "update": function (transactionId, data) {
+                        return $firebase(ref.child($rootScope.groupId + "/bank")).$update(transactionId, data);
+                    },
+                    "delete": function (transactionId) {
+                        return $firebase(ref.child($rootScope.groupId + "/bank")).$remove(transactionId);
                     }
                 }
             }

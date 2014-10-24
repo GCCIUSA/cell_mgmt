@@ -21,6 +21,12 @@ cgb
                     }
                     return dob;
                 },
+                "formatJSON": function (obj) {
+                    for (var key in obj) {
+                        obj[key] = obj[key] === undefined ? null : obj[key];
+                    }
+                    return obj;
+                },
                 "showName": function (member) {
                     if (member.enName !== undefined && member.cnName !== undefined) {
                         return member.cnName + " (" + member.enName + ")";
@@ -32,16 +38,18 @@ cgb
                         return member.enName;
                     }
                 },
-                "formatJSON": function (obj) {
-                    for (var key in obj) {
-                        obj[key] = obj[key] === undefined ? null : obj[key];
-                    }
-                    return obj;
-                },
                 "getMember": function (memberId) {
                     for (var i = 0; i < $rootScope.data.members.length; i++) {
                         if ($rootScope.data.members[i].$id === memberId) {
                             return $rootScope.data.members[i];
+                        }
+                    }
+                    return null;
+                },
+                "getTransaction": function (transactionId) {
+                    for (var i = 0; i < $rootScope.data.bank.length; i++) {
+                        if ($rootScope.data.bank[i].$id === transactionId) {
+                            return $rootScope.data.bank[i];
                         }
                     }
                     return null;

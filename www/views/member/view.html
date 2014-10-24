@@ -23,10 +23,10 @@
 <div ng-if="loggedIn">
     <div class="row">
         <div class="col">
-            <a class="button button-block button-stable" ui-sref="member.list({ 'groupId': groupId })">Back</a>
+            <a class="button button-block button-stable" ui-sref="member.list">Back</a>
         </div>
         <div class="col">
-            <a class="button button-block button-positive" ui-sref="member.edit({'groupId': groupId, 'memberId': member.$id})">
+            <a class="button button-block button-positive" ui-sref="member.edit({ 'memberId': member.$id })">
                 Edit
             </a>
         </div>
@@ -42,7 +42,7 @@
 <div ng-if="!loggedIn">
     <div class="row">
         <div class="col">
-            <a class="button button-block button-stable" ui-sref="member.list({ 'groupId': groupId })">Back</a>
+            <a class="button button-block button-stable" ui-sref="member.list">Back</a>
         </div>
     </div>
 </div>

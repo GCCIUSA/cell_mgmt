@@ -25,13 +25,20 @@ cgb
                 else if (state === "member.view" || state === "member.edit") {
                    navigator.app.backHistory();
                 }
+                // bank views
+                else if (state === "bank.view") {
+                    $state.go("home");
+                }
+                else if (state === "bank.income" || state === "bank.expense") {
+                    $state.go("bank.view");
+                }
             }, 100);
 
             // reload the master data
             $scope.$on("DATA_RELOAD", function (event, type) {
-                $ionicLoading.show({ "template": "Loading..." });
+                $ionicLoading.show({ "template": "<i class='icon ion-refreshing'></i>" });
 
-                var loaded = 0, cnt = type === undefined ? 2 : 1;
+                var loaded = 0, cnt = type === undefined ? 3 : 1;
                 if (type === undefined || type === "group") {
                     api.group.get().$loaded().then(function (data) {
                         $rootScope.data.group = data;
@@ -41,6 +48,26 @@ cgb
                 if (type === undefined || type === "members") {
                     api.member.list().$loaded().then(function (data) {
                         $rootScope.data.members = data;
+                        loadComplete();
+                    });
+                }
+                if (type === undefined || type === "bank") {
+                    api.bank.list().$loaded().then(function (data) {
+                        $rootScope.data.bank = data;
+                        $rootScope.data.bank.sort(function (a, b) {
+                            return a.date < b.date;
+                        });
+
+                        $rootScope.data.balance = 0;
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].type === "收入") {
+                                $rootScope.data.balance += data[i].amount;
+                            }
+                            else {
+                                $rootScope.data.balance -= data[i].amount;
+                            }
+                        }
+                        $rootScope.data.balance = $rootScope.data.balance.toFixed(2);
                         loadComplete();
                     });
                 }
@@ -59,9 +86,9 @@ cgb
                 $ionicSideMenuDelegate.toggleLeft(false);
             };
 
-            // manually open the left slide menu
-            $scope.openMenu = function () {
-                $ionicSideMenuDelegate.toggleLeft(true);
+            // toggle left slide menu
+            $scope.toggleMenu = function () {
+                $ionicSideMenuDelegate.toggleLeft();
             };
 
             // logout current user

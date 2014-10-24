@@ -53,7 +53,7 @@ cgb
             $scope.remove = function () {
                 navigator.notification.confirm("Are you sure to delete " + $state.params.memberId + "?", function (btnIndex) {
                     if (btnIndex === 2) {
-                        api.member.delete().then(function () {
+                        api.member.delete($state.params.memberId).then(function () {
                             $scope.$emit("DATA_RELOAD", "members");
                             $state.go("member.list");
                         });
