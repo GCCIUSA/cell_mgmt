@@ -3,7 +3,6 @@ cgb
         function ($scope, $rootScope, $state, $ionicSideMenuDelegate, $ionicPlatform, $ionicLoading, api) {
             // override and register hardware back button behavior
             $ionicPlatform.registerBackButtonAction(function () {
-                $ionicLoading.hide();
                 var state = $state.current.name;
                 if (state === "home") {
                     navigator.notification.confirm("Exit the app?", function (btnIndex) {
