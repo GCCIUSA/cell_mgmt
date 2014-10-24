@@ -27,7 +27,7 @@ cgb
                     }
                     return obj;
                 },
-                "showName": function (member) {
+                "getMemberName": function (member) {
                     if (member.enName !== undefined && member.cnName !== undefined) {
                         return member.cnName + " (" + member.enName + ")";
                     }

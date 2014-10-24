@@ -11,8 +11,8 @@ cgb
         }
     ])
 
-    .run(["$rootScope", "$ionicScrollDelegate",
-        function ($rootScope, $ionicScrollDelegate) {
+    .run(["$rootScope", "$ionicScrollDelegate", "$ionicLoading",
+        function ($rootScope, $ionicScrollDelegate, $ionicLoading) {
             // default group id, will be dynamic in future release
             $rootScope.groupId = "-JZpfbZLUH-Fwxc7IqWN";
 
@@ -25,6 +25,11 @@ cgb
             // scroll page to top on every state change
             $rootScope.$on("$stateChangeStart", function () {
                 $ionicScrollDelegate.scrollTop(true);
+            });
+
+            // remove loading icon if presented
+            $rootScope.$on("$stateChangeStart", function () {
+                $ionicLoading.hide();
             });
         }
     ])

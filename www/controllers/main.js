@@ -78,7 +78,11 @@ cgb
                     }
                 };
             });
-            $scope.$emit("DATA_RELOAD");
+
+            $scope.refresh = function () {
+                $scope.$emit("DATA_RELOAD");
+            };
+            $scope.refresh();
 
             // selecting an item from left slide menu
             $scope.selectMenu = function (state) {

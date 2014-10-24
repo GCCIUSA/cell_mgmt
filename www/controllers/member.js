@@ -51,7 +51,7 @@ cgb
             };
 
             $scope.remove = function () {
-                navigator.notification.confirm("Are you sure to delete " + $state.params.memberId + "?", function (btnIndex) {
+                navigator.notification.confirm("Are you sure to delete " + util.getName($scope.getMemberName) + "?", function (btnIndex) {
                     if (btnIndex === 2) {
                         api.member.delete($state.params.memberId).then(function () {
                             $scope.$emit("DATA_RELOAD", "members");
@@ -88,7 +88,7 @@ cgb
             }
 
             $scope.showName = function (member) {
-                return util.showName(member);
+                return util.getMemberName(member);
             };
         }
     ])
