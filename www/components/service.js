@@ -32,6 +32,12 @@ cgb
                         return member.enName;
                     }
                 },
+                "formatJSON": function (obj) {
+                    for (var key in obj) {
+                        obj[key] = obj[key] === undefined ? null : obj[key];
+                    }
+                    return obj;
+                },
                 "getMember": function (memberId) {
                     for (var i = 0; i < $rootScope.data.members.length; i++) {
                         if ($rootScope.data.members[i].$id === memberId) {

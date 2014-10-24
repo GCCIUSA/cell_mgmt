@@ -14,7 +14,6 @@ cgb
 
                 $scope.member = util.getMember($state.params.memberId);
 
-                // TODO update undefined field
                 $scope.update = function () {
                     var data = {
                         "cnName": $scope.member.cnName,
@@ -23,7 +22,7 @@ cgb
                         "email": $scope.member.email,
                         "phone": $scope.member.phone
                     };
-                    api.member.update(data).then(function () {
+                    api.member.update($state.params.memberId, util.formatJSON(data)).then(function () {
                         $scope.$emit("DATA_RELOAD", "members");
                         $state.go("member.list");
                     });
@@ -34,7 +33,7 @@ cgb
 
                 $scope.create = function () {
                     $scope.member.dob = util.formatDob($scope.member.dob);
-                    api.member.create($scope.member).then(function () {
+                    api.member.create(util.formatJSON($scope.member)).then(function () {
                         $scope.$emit("DATA_RELOAD", "members");
                         $state.go("member.list");
                     });
@@ -52,12 +51,14 @@ cgb
             };
 
             $scope.remove = function () {
-                if (confirm("Are you sure to delete this member?")) {
-                    api.member.delete().then(function () {
-                        $scope.$emit("DATA_RELOAD", "members");
-                        $state.go("member.list");
-                    });
-                }
+                navigator.notification.confirm("Are you sure to delete " + $state.params.memberId + "?", function (btnIndex) {
+                    if (btnIndex === 2) {
+                        api.member.delete().then(function () {
+                            $scope.$emit("DATA_RELOAD", "members");
+                            $state.go("member.list");
+                        });
+                    }
+                }, "Confirm", "Cancel,OK");
             };
         }
     ])
@@ -99,7 +100,7 @@ cgb
                     if ($scope.password === data.password) {
                         $scope.showErrMsg = false;
                         $rootScope.loggedIn = true;
-                        $state.go("group.view");
+                        $state.go("member.list");
                     }
                     else {
                         $rootScope.loggedIn = false;

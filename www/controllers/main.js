@@ -1,6 +1,6 @@
 cgb
-    .controller("MainCtrl", ["$scope", "$rootScope", "$state", "$ionicSideMenuDelegate", "$ionicPlatform", "api",
-        function ($scope, $rootScope, $state, $ionicSideMenuDelegate, $ionicPlatform, api) {
+    .controller("MainCtrl", ["$scope", "$rootScope", "$state", "$ionicSideMenuDelegate", "$ionicPlatform", "$ionicLoading", "api",
+        function ($scope, $rootScope, $state, $ionicSideMenuDelegate, $ionicPlatform, $ionicLoading, api) {
             // override and register hardware back button behavior
             $ionicPlatform.registerBackButtonAction(function () {
                 var state = $state.current.name;
@@ -29,16 +29,27 @@ cgb
 
             // reload the master data
             $scope.$on("DATA_RELOAD", function (event, type) {
+                $ionicLoading.show({ "template": "Loading..." });
+
+                var loaded = 0, cnt = type === undefined ? 2 : 1;
                 if (type === undefined || type === "group") {
                     api.group.get().$loaded().then(function (data) {
                         $rootScope.data.group = data;
+                        loadComplete();
                     });
                 }
                 if (type === undefined || type === "members") {
                     api.member.list().$loaded().then(function (data) {
                         $rootScope.data.members = data;
+                        loadComplete();
                     });
                 }
+
+                var loadComplete = function () {
+                    if (++loaded === cnt) {
+                        $ionicLoading.hide();
+                    }
+                };
             });
             $scope.$emit("DATA_RELOAD");
 
