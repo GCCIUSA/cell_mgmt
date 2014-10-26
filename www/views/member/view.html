@@ -11,12 +11,14 @@
         <h2>生日</h2>
         <p ng-bind="member.dob"></p>
     </a>
-    <a class="item">
+    <a class="item item-icon-right" href="mailto:{{member.email}}">
         <h2>電子郵件</h2>
+        <i class="icon ion-ios7-email-outline"></i>
         <p ng-bind="member.email"></p>
     </a>
-    <a class="item">
+    <a class="item item-icon-right" href="tel:{{member.phone}}">
         <h2>電話號碼</h2>
+        <i class="icon ion-ios7-telephone-outline"></i>
         <p ng-bind="formatPhone(member.phone)"></p>
     </a>
 </div>
