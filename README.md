@@ -28,10 +28,8 @@ Note: run `gulp compile` to compile resources manually if necessary.
 ## release and sign
 
 1. run `cordova build --release android`
-2. go to `platform/android/ant-build`
-3. generate keystore `keytool -genkey -v -keystore release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000`
-4. run `jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore release-key.keystore AppName-release-unsigned.apk alias_name`
-5. run `zipalign -v 4 AppName-release-unsigned.apk AppName.apk`
+2. run `jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore release-key.keystore platform/android/ant-build/CordovaApp-release-unsigned.apk alias_name`
+3. run `zipalign -v 4 CordovaApp-release-unsigned.apk cgb.apk`
     - note, zipalign is in `android-sdk/build-tools/x.x.x/`
 
 ## Product Backlog
