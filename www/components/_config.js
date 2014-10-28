@@ -1,7 +1,7 @@
 /*!
  * custom scripts
  */
-var cgb = angular.module("cgb", ["ionic", "firebase"]);
+var cgb = angular.module("cgb", ["ionic", "ngCordova", "firebase"]);
 
 cgb
     .config(["$httpProvider",
@@ -13,8 +13,11 @@ cgb
 
     .run(["$rootScope", "$ionicScrollDelegate",
         function ($rootScope, $ionicScrollDelegate) {
+            // data storage path
+            $rootScope.dataFile = "cgb_data.dat";
+
             // default group id, will be dynamic in future release
-            $rootScope.groupId = "-JZpfbZLUH-Fwxc7IqWN";
+            $rootScope.groupId = null;
 
             // master data that holds the entire firebase obj
             $rootScope.data = { "group": null, "members": null, "bank": null, "balance": null };

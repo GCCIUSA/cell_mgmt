@@ -1,7 +1,8 @@
 cgb
     .config(["$stateProvider", "$urlRouterProvider",
         function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise("/home");
+            // infinite loop if $rootScope.groupId is not set
+            // $urlRouterProvider.otherwise("/home");
 
             var setView = function (path) {
                 return "views/" + path + ".html";
@@ -20,6 +21,11 @@ cgb
                     "abstract": true,
                     "url": "/group",
                     "template": "<ui-view/>"
+                })
+                .state("group.join", {
+                    "url": "/join",
+                    "templateUrl": setView("group/join"),
+                    "controller": "GroupJoinCtrl"
                 })
                 .state("group.new", {
                     "url": "/new",

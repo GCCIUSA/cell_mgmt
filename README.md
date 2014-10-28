@@ -20,6 +20,7 @@ After all requirements are met, do following:
 3. install Cordova platform and plugins
     1. run `cordova platform add android` to add Android platform
     2. run `cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-dialogs.git` to install Notification plugin
+    3. run `cordova plugin add org.apache.cordova.file` to install FileSystem plugin
 4. run `cordova build android` to build
 5. run `cordova run android` to build to device/emulator
 

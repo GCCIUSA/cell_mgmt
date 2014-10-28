@@ -9,8 +9,8 @@ cgb
 
             return {
                 "group": {
-                    "get": function () {
-                        return $firebase(ref.child($rootScope.groupId)).$asObject();
+                    "get": function (groupId) {
+                        return $firebase(ref.child(groupId === undefined ? $rootScope.groupId : groupId)).$asObject();
                     },
                     "create": function (data) {
                         loading();

@@ -39,6 +39,35 @@ cgb
         }
     ])
 
+    .controller("GroupJoinCtrl", ["$scope", "$rootScope", "api", "$state", "$cordovaFile",
+        function ($scope, $rootScope, api, $state, $cordovaFile) {
+            $scope.join = function () {
+                // check if group exists
+                api.group.get($scope.joinGroupId).$loaded().then(function (data) {
+                    if (data.name === undefined) {
+                        // group does not exist
+                        $scope.showErrMsg = true;
+                    }
+                    else {
+                        // group exists
+                        $scope.showErrMsg = false;
+                        $rootScope.groupId = $scope.joinGroupId;
+
+                        $cordovaFile.writeFile($rootScope.dataFile, $scope.joinGroupId, { append: false }).then(
+                            function () {
+                                $scope.$emit("DATA_RELOAD");
+                                $state.go("group.view");
+                            },
+                            function () {
+                                window.navigator.notification.alert("無法寫入小組數據");
+                            }
+                        );
+                    }
+                });
+            };
+        }
+    ])
+
     .controller("GroupViewCtrl", ["$scope", "api",
         function ($scope, api) {
 
