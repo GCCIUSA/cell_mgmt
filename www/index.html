@@ -24,7 +24,7 @@
                 <ui-view></ui-view>
             </ion-content>
         </ion-side-menu-content>
-        <ion-side-menu side="left">
+        <ion-side-menu side="left" ng-init="easterEggCount = 10">
             <ion-header-bar class="bar-dark">
                 <h1 class="title">Cell Group Book</h1>
             </ion-header-bar>
@@ -41,10 +41,11 @@
                     <a class="item" ng-click="selectMenu('member.login')" ng-if="!loggedIn">管理員登錄</a>
                     <a class="item" ng-click="logout()" ng-if="loggedIn">管理員登出</a>
                     <a class="item" ng-click="selectMenu('group.join')">加入其他小組</a>
+                    <a class="item" ng-click="selectMenu('group.new')" ng-if="easterEggCount === 0">新建小組</a>
                 </div>
             </ion-content>
             <ion-footer-bar class="bar-stable">
-                <h1 class="title">Created by PZ</h1>
+                <h1 class="title" ng-click="easterEggCount = easterEggCount - 1">Created by PZ</h1>
             </ion-footer-bar>
         </ion-side-menu>
     </ion-side-menus>

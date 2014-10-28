@@ -1,6 +1,6 @@
 cgb
-    .controller("GroupEditCtrl", ["$scope", "$rootScope", "$state", "api", "util",
-        function ($scope, $rootScope, $state, api, util) {
+    .controller("GroupEditCtrl", ["$scope", "$rootScope", "$state", "api", "util", "$$cordovaFile",
+        function ($scope, $rootScope, $state, api, util, $cordovaFile) {
             if ($state.current.name === "group.edit") {
                 $scope.isNew = false;
 
@@ -27,13 +27,37 @@ cgb
                 $scope.create = function () {
                     navigator.notification.confirm("Are you sure to create this group?", function (btnIndex) {
                         if (btnIndex === 2) {
-                            api.group.create(util.formatJSON($scope.group)).then(function (ref) {
-                                $rootScope.groupId = ref.name();
-                                $scope.$emit("DATA_RELOAD", "group");
-                                $state.go("group.view");
-                            });
+                            var genGroup = function () {
+                                // generate 5 digit number
+                                var groupId = Math.floor(Math.random() * 90000) + 10000;
+
+                                // check if group exists
+                                api.group.get(groupId).$loaded().then(function (data) {
+                                    if (data.name === undefined) {
+                                        // group does not exist, create group
+                                        api.group.create(util.formatJSON($scope.group)).then(function (ref) {
+                                            $cordovaFile.writeFile($rootScope.dataFile, ref.name(), { append: false }).then(
+                                                function () {
+                                                    $rootScope.groupId = ref.name();
+                                                    $scope.$emit("DATA_RELOAD");
+                                                    $state.go("group.view");
+                                                },
+                                                function () {
+                                                    window.navigator.notification.alert("無法寫入小組數據");
+                                                }
+                                            );
+                                        });
+                                    }
+                                    else {
+                                        // group exists, re-generate
+                                        genGroup();
+                                    }
+                                });
+                            };
+
+                            genGroup();
                         }
-                    }, "Confirm", "Cancel,OK");
+                    }, "Confirm", ["Cancel", "OK"]);
                 };
             }
         }
@@ -51,10 +75,9 @@ cgb
                     else {
                         // group exists
                         $scope.showErrMsg = false;
-                        $rootScope.groupId = $scope.joinGroupId;
-
                         $cordovaFile.writeFile($rootScope.dataFile, $scope.joinGroupId, { append: false }).then(
                             function () {
+                                $rootScope.groupId = $scope.joinGroupId;
                                 $scope.$emit("DATA_RELOAD");
                                 $state.go("group.view");
                             },

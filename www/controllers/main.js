@@ -10,7 +10,7 @@ cgb
                             if (btnIndex === 2) {
                                 navigator.app.exitApp();
                             }
-                        }, "Confirm", "Cancel,OK");
+                        }, "Confirm", ["Cancel", "OK"]);
                     }
                     // group views
                     else if (state === "group.join") {
@@ -19,7 +19,7 @@ cgb
                                 if (btnIndex === 2) {
                                     navigator.app.exitApp();
                                 }
-                            }, "Confirm", "Cancel,OK");
+                            }, "Confirm", ["Cancel", "OK"]);
                         }
                         else {
                             $state.go("home");
