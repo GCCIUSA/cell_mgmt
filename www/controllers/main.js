@@ -52,7 +52,6 @@ cgb
                         // reset birthday notification
                         document.addEventListener('deviceready', function () {
                             // cancelAll() callback has bug, will update when it's fixed.
-                            // $cordovaLocalNotification.cancelAll().then(function () {});
                             window.plugin.notification.local.getScheduledIds(function (scheduledIds) {
                                 var member, dob, i;
 
@@ -62,27 +61,19 @@ cgb
                                 }
 
                                 // add new notifications
-                                window.plugin.notification.local.add({
-                                    id: 123,
-                                    date: util.toDate("5/18"),
-                                    repeat: "yearly",
-                                    title: "生日提醒",
-                                    message: "今天是test的生日！"
-                                });
-                                /* for (i = 0; i < $rootScope.data.members.length; i++) {
+                                for (i = 0; i < $rootScope.data.members.length; i++) {
                                     member = $rootScope.data.members[i];
-                                    dob = util.toDate(member.dob);
+                                    dob = util.toNotifyDate(member.dob);
                                     if (dob !== null) {
-                                        navigator.notification.alert(member.enName + "||" + dob);
                                         window.plugin.notification.local.add({
-                                            id: member.$id,
+                                            id: i,
                                             date: dob,
                                             repeat: "yearly",
                                             title: "生日提醒",
                                             message: "今天是" + util.getMemberName(member) + "的生日！"
                                         });
                                     }
-                                } */
+                                }
                             });
                         });
 
