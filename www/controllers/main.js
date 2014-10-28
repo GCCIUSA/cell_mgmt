@@ -1,6 +1,6 @@
 cgb
-    .controller("MainCtrl", ["$scope", "$rootScope", "$state", "$ionicSideMenuDelegate", "$ionicPlatform", "$ionicLoading", "api",
-        function ($scope, $rootScope, $state, $ionicSideMenuDelegate, $ionicPlatform, $ionicLoading, api) {
+    .controller("MainCtrl", ["$scope", "$rootScope", "$state", "$ionicSideMenuDelegate", "$ionicPlatform", "$ionicLoading", "api", "util",
+        function ($scope, $rootScope, $state, $ionicSideMenuDelegate, $ionicPlatform, $ionicLoading, api, util) {
             // override and register hardware back button behavior
             $ionicPlatform.registerBackButtonAction(function () {
                 var state = $state.current.name;
@@ -48,6 +48,44 @@ cgb
                 if (type === undefined || type === "members") {
                     api.member.list().$loaded().then(function (data) {
                         $rootScope.data.members = data;
+
+                        // reset birthday notification
+                        document.addEventListener('deviceready', function () {
+                            // cancelAll() callback has bug, will update when it's fixed.
+                            // $cordovaLocalNotification.cancelAll().then(function () {});
+                            window.plugin.notification.local.getScheduledIds(function (scheduledIds) {
+                                var member, dob, i;
+
+                                // cancel all existing notifications
+                                for (i = 0; scheduledIds.length > i; i++) {
+                                    window.plugin.notification.local.cancel(scheduledIds[i]);
+                                }
+
+                                // add new notifications
+                                window.plugin.notification.local.add({
+                                    id: 123,
+                                    date: util.toDate("5/18"),
+                                    repeat: "yearly",
+                                    title: "生日提醒",
+                                    message: "今天是test的生日！"
+                                });
+                                /* for (i = 0; i < $rootScope.data.members.length; i++) {
+                                    member = $rootScope.data.members[i];
+                                    dob = util.toDate(member.dob);
+                                    if (dob !== null) {
+                                        navigator.notification.alert(member.enName + "||" + dob);
+                                        window.plugin.notification.local.add({
+                                            id: member.$id,
+                                            date: dob,
+                                            repeat: "yearly",
+                                            title: "生日提醒",
+                                            message: "今天是" + util.getMemberName(member) + "的生日！"
+                                        });
+                                    }
+                                } */
+                            });
+                        });
+
                         loadComplete();
                     });
                 }

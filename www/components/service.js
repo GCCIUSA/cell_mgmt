@@ -27,6 +27,23 @@ cgb
                     }
                     return obj;
                 },
+                "toDate": function (str) {
+                    try {
+                        var split = str.split("/"), now = new Date();
+                        var date = new Date(now.getFullYear(), split[0] - 1, split[1], 21, 08, 0);
+
+                        navigator.notification.alert(date);
+                        if (date instanceof Date && !isNaN(date.valueOf())) {
+                            return date;
+                        }
+
+                        return null;
+                    }
+                    catch (err) {
+                        navigator.notification.alert("null value");
+                        return null;
+                    }
+                },
                 "getMemberName": function (member) {
                     if (member.enName !== undefined && member.cnName !== undefined) {
                         return member.cnName + " (" + member.enName + ")";

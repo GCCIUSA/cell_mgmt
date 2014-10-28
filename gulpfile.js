@@ -3,7 +3,12 @@ var plugins = require("gulp-load-plugins")();
 var streamqueue = require("streamqueue");
 
 gulp.task("js", function () {
-    var lib = gulp.src(["www/libs/ionic/js/ionic.bundle.min.js", "www/libs/firebase/firebase.js", "www/libs/firebase/angularfire.min.js"]);
+    var lib = gulp.src([
+        "www/libs/ionic/js/ionic.bundle.min.js",
+        "www/libs/ionic/js/ng-cordova.min.js",
+        "www/libs/firebase/firebase.js",
+        "www/libs/firebase/angularfire.min.js"
+    ]);
 
     var custom = gulp.src(["www/components/*.js", "www/controllers/*.js"])
         .pipe(plugins.uglify({ preserveComments: "some" }));
