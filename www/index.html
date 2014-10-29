@@ -33,15 +33,15 @@
                     <img src="assets/imgs/set_logo.jpg" style="max-height: 100%; max-width: 100%;"/>
                 </div>
                 <div class="list">
-                    <a class="item" ng-click="selectMenu('home')">主界面</a>
-                    <a class="item" ng-click="selectMenu('group.view')">小組信息</a>
-                    <a class="item" ng-click="selectMenu('member.list')">小組成員</a>
-                    <a class="item" ng-click="selectMenu('member.bd')">生日表</a>
-                    <a class="item" ng-click="selectMenu('bank.list')">小組經費</a>
-                    <a class="item" ng-click="selectMenu('member.login')" ng-if="!loggedIn">管理員登錄</a>
-                    <a class="item" ng-click="logout()" ng-if="loggedIn">管理員登出</a>
-                    <a class="item" ng-click="selectMenu('group.join')">加入其他小組</a>
-                    <a class="item" ng-click="selectMenu('group.new')" ng-if="easterEggCount === 0">新建小組</a>
+                    <a class="item{{selectedMenu('home')}}" ng-click="selectMenu('home')" ng-if="groupId !== null">主界面</a>
+                    <a class="item{{selectedMenu('group.view')}}" ng-click="selectMenu('group.view')" ng-if="groupId !== null">小組信息</a>
+                    <a class="item{{selectedMenu('member.list')}}" ng-click="selectMenu('member.list')" ng-if="groupId !== null">小組成員</a>
+                    <a class="item{{selectedMenu('member.bd')}}" ng-click="selectMenu('member.bd')" ng-if="groupId !== null">生日表</a>
+                    <a class="item{{selectedMenu('bank.list')}}" ng-click="selectMenu('bank.list')" ng-if="groupId !== null">小組經費</a>
+                    <a class="item{{selectedMenu('member.login')}}" ng-click="selectMenu('member.login')" ng-if="!loggedIn" ng-if="groupId !== null">管理員登錄</a>
+                    <a class="item" ng-click="logout()" ng-if="loggedIn" ng-if="groupId !== null">管理員登出</a>
+                    <a class="item{{selectedMenu('group.join')}}" ng-click="selectMenu('group.join')" ng-if="groupId !== null">加入其他小組</a>
+                    <a class="item{{selectedMenu('group.new')}}" ng-click="selectMenu('group.new')" ng-if="easterEggCount === 0">新建小組</a>
                 </div>
             </ion-content>
             <ion-footer-bar class="bar-stable">

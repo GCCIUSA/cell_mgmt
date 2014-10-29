@@ -31,6 +31,9 @@ cgb
                     else if (state === "group.edit") {
                         navigator.app.backHistory();
                     }
+                    else if (state === "group.new") {
+                        $state.go("home");
+                    }
                     // member views
                     else if (state === "member.list" || state === "member.bd" || state === "member.login") {
                         $state.go("home");
@@ -170,6 +173,10 @@ cgb
                 $scope.selectMenu = function (state) {
                     $state.go(state);
                     $ionicSideMenuDelegate.toggleLeft(false);
+                };
+
+                $scope.selectedMenu = function (state) {
+                    return state === $state.current.name ? " active": "";
                 };
 
                 // toggle left slide menu

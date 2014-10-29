@@ -1,5 +1,5 @@
 cgb
-    .controller("GroupEditCtrl", ["$scope", "$rootScope", "$state", "api", "util", "$$cordovaFile",
+    .controller("GroupEditCtrl", ["$scope", "$rootScope", "$state", "api", "util", "$cordovaFile",
         function ($scope, $rootScope, $state, api, util, $cordovaFile) {
             if ($state.current.name === "group.edit") {
                 $scope.isNew = false;
