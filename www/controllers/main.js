@@ -1,6 +1,7 @@
 cgb
     .controller("MainCtrl", ["$scope", "$rootScope", "$state", "$ionicSideMenuDelegate", "$ionicPlatform", "$ionicLoading", "$cordovaFile", "api", "util",
         function ($scope, $rootScope, $state, $ionicSideMenuDelegate, $ionicPlatform, $ionicLoading, $cordovaFile, api, util) {
+            $ionicLoading.show({ "template": "<i class='icon ion-refreshing'></i>" });
             $ionicPlatform.ready(function () {
                 // override and register hardware back button behavior
                 $ionicPlatform.registerBackButtonAction(function () {
@@ -175,6 +176,7 @@ cgb
                     $ionicSideMenuDelegate.toggleLeft(false);
                 };
 
+                // highlight selected slide menu item
                 $scope.selectedMenu = function (state) {
                     return state === $state.current.name ? " active": "";
                 };
@@ -196,9 +198,7 @@ cgb
 
     .controller("HomeCtrl", ["$scope", "$rootScope", "$state",
         function ($scope, $rootScope, $state) {
-            if ($rootScope.groupId === null) {
-                $state.go("group.join");
-            }
+
         }
     ])
 ;
