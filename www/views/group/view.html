@@ -3,6 +3,10 @@
         <h2>小組名稱</h2>
         <p ng-bind="data.group.name"></p>
     </a>
+    <a class="item" ng-click="copy(groupId)">
+        <h2>小組ID (點擊複製)</h2>
+        <p ng-bind="groupId"></p>
+    </a>
     <a class="item">
         <h2>主要語言</h2>
         <p ng-bind="data.group.lang"></p>

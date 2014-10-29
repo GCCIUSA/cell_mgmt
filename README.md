@@ -21,8 +21,11 @@ After all requirements are met, do following:
     1. run `cordova platform add android` to add Android platform
     2. run `cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-dialogs.git` to install Notification plugin
     3. run `cordova plugin add org.apache.cordova.file` to install FileSystem plugin
-4. run `cordova build android` to build
-5. run `cordova run android` to build to device/emulator
+    4. run `cordova plugin add https://github.com/VersoSolutions/CordovaClipboard` to install Clipboard plugin
+    5. run `cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git` to install Toast plugin
+4. replace icons in `platform/android/res` with icons in `/resources`
+5. run `cordova build android` to build
+6. run `cordova run android` to build to device/emulator
 
 Note: run `gulp compile` to compile resources manually if necessary.
 

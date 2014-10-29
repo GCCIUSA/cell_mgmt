@@ -91,9 +91,13 @@ cgb
         }
     ])
 
-    .controller("GroupViewCtrl", ["$scope", "api",
-        function ($scope, api) {
-
+    .controller("GroupViewCtrl", ["$scope", "$cordovaClipboard", "$cordovaToast",
+        function ($scope, $cordovaClipboard, $cordovaToast) {
+            $scope.copy = function (groupId) {
+                $cordovaClipboard.copy(groupId).then(function () {
+                    $cordovaToast.showShortCenter("小組ID已複製");
+                });
+            };
         }
     ])
 ;
