@@ -51,12 +51,28 @@ gulp.task("watch", function () {
 
 gulp.task("compile", ["css", "js", "fonts", "images"]);
 
-gulp.task("install-android", function () {
-    plugins.run("cordova platform add android").exec();
-    plugins.run("cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-dialogs.git").exec();
-    plugins.run("cordova plugin add org.apache.cordova.file").exec();
-    plugins.run("cordova plugin add https://github.com/VersoSolutions/CordovaClipboard").exec();
-    plugins.run("cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git").exec();
+gulp.task("init-android", function () {
+    plugins.run("cordova platform add android").exec(function () {
+        // install cordva plugins
+        plugins.run("cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications.git").exec();
+        plugins.run("cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-dialogs.git").exec();
+        plugins.run("cordova plugin add org.apache.cordova.file").exec();
+        plugins.run("cordova plugin add https://github.com/VersoSolutions/CordovaClipboard").exec();
+        plugins.run("cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git").exec();
+
+        // replace app icons
+        console.log("Replacing app icons...");
+        gulp.src("resources/icon.png")
+            .pipe(gulp.dest("platforms/android/res/drawable/"))
+            .pipe(gulp.dest("platforms/android/res/drawable-xhdpi/"));
+
+        gulp.src("resources/icon-72.png")
+            .pipe(plugins.rename("icon.png"))
+            .pipe(gulp.dest("platforms/android/res/drawable-hdpi/"));
+    });
+});
+
+gulp.task("build-android", ["compile"], function () {
     plugins.run("cordova build android").exec();
 });
 

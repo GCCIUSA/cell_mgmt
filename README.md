@@ -17,9 +17,9 @@ After all requirements are met, do following:
 2. install Node.js packages
     1. run `npm install` to required packages
     2. run `gulp compile` to compile js, css, imgages and fonts
-3. install Cordova platform and plugins `gulp install-android`
-4. replace icons in `platform/android/res` with icons in `/resources`
-5. run `gulp run-android` to run on device/emulator
+    3. run `gulp watch` to monitor file changes and re-compile automatically
+3. run `gulp init-android` to install Cordova platform and plugins 
+4. run `gulp build-android` to build, or `gulp run-android` to run on device/emulator
 
 Note: run `gulp compile` to compile resources manually if necessary.
 
