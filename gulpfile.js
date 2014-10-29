@@ -50,3 +50,16 @@ gulp.task("watch", function () {
 });
 
 gulp.task("compile", ["css", "js", "fonts", "images"]);
+
+gulp.task("install-android", function () {
+    plugins.run("cordova platform add android").exec();
+    plugins.run("cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-dialogs.git").exec();
+    plugins.run("cordova plugin add org.apache.cordova.file").exec();
+    plugins.run("cordova plugin add https://github.com/VersoSolutions/CordovaClipboard").exec();
+    plugins.run("cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git").exec();
+    plugins.run("cordova build android").exec();
+});
+
+gulp.task("run-android", ["compile"], function () {
+    plugins.run("cordova run android").exec();
+});
