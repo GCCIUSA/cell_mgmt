@@ -13,42 +13,17 @@ After all requirements are met, do following:
 
 1. clone repo
 2. install Node.js packages
-    1. run `npm install` to required packages
+    1. run `npm install` to install required packages
     2. run `gulp compile` to compile js, css, imgages and fonts
-3. run `gulp init-android` to install Cordova platform and plugins
-4. run `gulp build-android` to build
+3. run `gulp init-android` to install Android platform and Cordova plugins
+4. run `gulp build-android` to build Android project
  
 ## Developing
 - developing using browser
-    1. run `gulp watch` to monitor file changes and re-compile automatically
+    - run `gulp watch` to monitor file changes and re-compile automatically
 - developing using emulator or device
-    1. run `gulp run-android` to run on device/emulator
+    - run `gulp run-android` to run on device/emulator
 
 ## release and sign
 1. run `gulp release-android -p <keystore password>`
-2. The apk file is in `platforms/android/ant-build/cgb.apk`
-
-## Product Backlog
-
-- create / edit / delete a cell group
-- search cell groups
-- create / edit / delete members and permissions
-- cell group budget management
-- things to pray for
-- photo management
-
-## Sprints
-
-### Sprint 1
-- create / edit / delete a cell group
-- create / edit / delete members and permissions
-
-### Sprint 2
-- cell group budget management
-- things to pray for
-
-### Sprint 3
-- photo management
-
-### Sprint 4
-- search public cell groups
+2. The apk file is at `platforms/android/ant-build/cgb.apk`
