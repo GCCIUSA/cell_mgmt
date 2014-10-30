@@ -1,7 +1,7 @@
 cgb
-    .controller("MainCtrl", ["$scope", "$rootScope", "$state", "$ionicSideMenuDelegate", "$ionicPlatform", "$ionicLoading", "$cordovaFile", "api", "util",
-        function ($scope, $rootScope, $state, $ionicSideMenuDelegate, $ionicPlatform, $ionicLoading, $cordovaFile, api, util) {
-            $ionicLoading.show({ "template": "<i class='icon ion-refreshing'></i>" });
+    .controller("MainCtrl", ["$scope", "$rootScope", "$state", "$ionicSideMenuDelegate", "$ionicPlatform", "$cordovaFile", "api", "util",
+        function ($scope, $rootScope, $state, $ionicSideMenuDelegate, $ionicPlatform, $cordovaFile, api, util) {
+            util.loading("on");
             $ionicPlatform.ready(function () {
                 // override and register hardware back button behavior
                 $ionicPlatform.registerBackButtonAction(function () {
@@ -58,6 +58,7 @@ cgb
                         $cordovaFile.readAsText($rootScope.dataFile).then(
                             function (content) {
                                 if (content === "") {
+                                    util.loading("off");
                                     $state.go("group.join");
                                 }
                                 else {
@@ -65,6 +66,7 @@ cgb
                                     api.group.get(content).$loaded().then(function (data) {
                                         if (data.name === undefined) {
                                             // group does not exist
+                                            util.loading("off");
                                             $state.go("group.join");
                                         }
                                         else {
@@ -77,6 +79,7 @@ cgb
                                 }
                             },
                             function () {
+                                util.loading("off");
                                 window.navigator.notification.alert("無法讀取小組數據");
                             }
                         );
@@ -85,9 +88,11 @@ cgb
                         // file does not exist, create file
                         $cordovaFile.createFile($rootScope.dataFile).then(
                             function () {
+                                util.loading("off");
                                 $state.go("group.join");
                             },
                             function () {
+                                util.loading("off");
                                 window.navigator.notification.alert("無法創建小組數據");
                             }
                         );
@@ -96,7 +101,7 @@ cgb
 
                 // reload the master data
                 $scope.$on("DATA_RELOAD", function (event, type) {
-                    $ionicLoading.show({ "template": "<i class='icon ion-refreshing'></i>" });
+                    util.loading("on");
 
                     var loaded = 0, cnt = type === undefined ? 3 : 1;
                     if (type === undefined || type === "group") {
@@ -161,7 +166,7 @@ cgb
 
                     var loadComplete = function () {
                         if (++loaded === cnt) {
-                            $ionicLoading.hide();
+                            util.loading("off");
                         }
                     };
                 });

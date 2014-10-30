@@ -15,6 +15,7 @@ cgb
                 $scope.member = util.getMember($state.params.memberId);
 
                 $scope.update = function () {
+                    util.loading("on");
                     var data = {
                         "cnName": $scope.member.cnName,
                         "enName": $scope.member.enName,
@@ -32,6 +33,7 @@ cgb
                 $scope.isNew = true;
 
                 $scope.create = function () {
+                    util.loading("on");
                     $scope.member.dob = util.formatDob($scope.member.dob);
                     api.member.create(util.formatJSON($scope.member)).then(function () {
                         $scope.$emit("DATA_RELOAD", "members");
@@ -53,6 +55,7 @@ cgb
             $scope.remove = function () {
                 navigator.notification.confirm("確認刪除：" + util.getMemberName($scope.member) + "?", function (btnIndex) {
                     if (btnIndex === 2) {
+                        util.loading("on");
                         api.member.delete($state.params.memberId).then(function () {
                             $scope.$emit("DATA_RELOAD", "members");
                             $state.go("member.list");
@@ -93,12 +96,12 @@ cgb
         }
     ])
 
-    .controller("MemberLoginCtrl", ["$scope", "$rootScope", "$state", "api", "$ionicLoading",
-        function ($scope, $rootScope, $state, api, $ionicLoading) {
+    .controller("MemberLoginCtrl", ["$scope", "$rootScope", "$state", "api", "util",
+        function ($scope, $rootScope, $state, api, util) {
             $scope.login = function () {
-                $ionicLoading.show({ "template": "<i class='icon ion-refreshing'></i>" });
+                util.loading("on");
                 api.group.get().$loaded().then(function (data) {
-                    $ionicLoading.hide();
+                    util.loading("off");
                     if ($scope.password === data.password) {
                         $scope.showErrMsg = false;
                         $rootScope.loggedIn = true;

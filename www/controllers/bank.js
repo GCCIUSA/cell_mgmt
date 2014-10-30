@@ -12,6 +12,7 @@ cgb
             $scope.remove = function () {
                 navigator.notification.confirm("刪除這筆記錄?", function (btnIndex) {
                     if (btnIndex === 2) {
+                        util.loading("on");
                         api.bank.delete($state.params.transactionId).then(function () {
                             $scope.$emit("DATA_RELOAD", "bank");
                             $state.go("bank.list");
@@ -33,6 +34,7 @@ cgb
                 };
 
                 $scope.create = function () {
+                    util.loading("on");
                     api.bank.create(util.formatJSON($scope.transaction)).then(function () {
                         $scope.$emit("DATA_RELOAD", "bank");
                         $state.go("bank.list");
@@ -45,6 +47,7 @@ cgb
                 $scope.transaction = util.getTransaction($state.params.transactionId);
 
                 $scope.update = function () {
+                    util.loading("on");
                     var data = {
                         "type": $scope.transaction.type,
                         "purpose": $scope.transaction.purpose,

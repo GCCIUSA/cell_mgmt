@@ -1,7 +1,15 @@
 cgb
-    .factory("util", ["$rootScope",
-        function ($rootScope) {
+    .factory("util", ["$rootScope", "$ionicLoading",
+        function ($rootScope, $ionicLoading) {
             return {
+                "loading": function (type) {
+                    if (type === "on") {
+                        $ionicLoading.show({ "template": "<i class='icon ion-refreshing'></i>" });
+                    }
+                    else if (type === "off") {
+                        $ionicLoading.hide();
+                    }
+                },
                 "formatPhone": function (phone) {
                     if (phone !== undefined && phone.length === 10) {
                         return "(" + phone.substr(0, 3) + ") " + phone.substr(3, 3) + "-" + phone.substr(6);

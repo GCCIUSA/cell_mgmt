@@ -7,6 +7,7 @@ cgb
                 $scope.group = $rootScope.data.group;
 
                 $scope.update = function () {
+                    util.loading("on");
                     var data = {
                         "name": $scope.group.name,
                         "lang": $scope.group.lang,
@@ -27,35 +28,20 @@ cgb
                 $scope.create = function () {
                     navigator.notification.confirm("Are you sure to create this group?", function (btnIndex) {
                         if (btnIndex === 2) {
-                            var genGroup = function () {
-                                // generate 5 digit number
-                                var groupId = Math.floor(Math.random() * 90000) + 10000;
-
-                                // check if group exists
-                                api.group.get(groupId).$loaded().then(function (data) {
-                                    if (data.name === undefined) {
-                                        // group does not exist, create group
-                                        api.group.create(util.formatJSON($scope.group)).then(function (ref) {
-                                            $cordovaFile.writeFile($rootScope.dataFile, ref.name(), { append: false }).then(
-                                                function () {
-                                                    $rootScope.groupId = ref.name();
-                                                    $scope.$emit("DATA_RELOAD");
-                                                    $state.go("group.view");
-                                                },
-                                                function () {
-                                                    window.navigator.notification.alert("無法寫入小組數據");
-                                                }
-                                            );
-                                        });
+                            util.loading("on");
+                            api.group.create(util.formatJSON($scope.group)).then(function (ref) {
+                                $cordovaFile.writeFile($rootScope.dataFile, ref.name(), { append: false }).then(
+                                    function () {
+                                        $rootScope.groupId = ref.name();
+                                        $scope.$emit("DATA_RELOAD");
+                                        $state.go("group.view");
+                                    },
+                                    function () {
+                                        util.loading("off");
+                                        window.navigator.notification.alert("無法寫入小組數據");
                                     }
-                                    else {
-                                        // group exists, re-generate
-                                        genGroup();
-                                    }
-                                });
-                            };
-
-                            genGroup();
+                                );
+                            });
                         }
                     }, "Confirm", ["Cancel", "OK"]);
                 };
@@ -63,30 +49,38 @@ cgb
         }
     ])
 
-    .controller("GroupJoinCtrl", ["$scope", "$rootScope", "api", "$state", "$cordovaFile",
-        function ($scope, $rootScope, api, $state, $cordovaFile) {
+    .controller("GroupJoinCtrl", ["$scope", "$rootScope", "api", "$state", "$cordovaFile", "util",
+        function ($scope, $rootScope, api, $state, $cordovaFile, util) {
             $scope.join = function () {
-                // check if group exists
-                api.group.get($scope.joinGroupId).$loaded().then(function (data) {
-                    if (data.name === undefined) {
-                        // group does not exist
-                        $scope.showErrMsg = true;
-                    }
-                    else {
-                        // group exists
-                        $scope.showErrMsg = false;
-                        $cordovaFile.writeFile($rootScope.dataFile, $scope.joinGroupId, { append: false }).then(
-                            function () {
-                                $rootScope.groupId = $scope.joinGroupId;
-                                $scope.$emit("DATA_RELOAD");
-                                $state.go("group.view");
-                            },
-                            function () {
-                                window.navigator.notification.alert("無法寫入小組數據");
-                            }
-                        );
-                    }
-                });
+                if ($scope.joinGroupId !== undefined && $scope.joinGroupId !== "") {
+                    // check if group exists
+                    util.loading("on");
+                    api.group.get($scope.joinGroupId).$loaded().then(function (data) {
+                        if (data.name === undefined) {
+                            // group does not exist
+                            util.loading("off");
+                            $scope.showErrMsg = true;
+                        }
+                        else {
+                            // group exists
+                            $scope.showErrMsg = false;
+                            $cordovaFile.writeFile($rootScope.dataFile, $scope.joinGroupId, { append: false }).then(
+                                function () {
+                                    $rootScope.groupId = $scope.joinGroupId;
+                                    $scope.$emit("DATA_RELOAD");
+                                    $state.go("group.view");
+                                },
+                                function () {
+                                    util.loading("off");
+                                    window.navigator.notification.alert("無法寫入小組數據");
+                                }
+                            );
+                        }
+                    });
+                }
+                else {
+                    $scope.showErrMsg = true;
+                }
             };
         }
     ])
