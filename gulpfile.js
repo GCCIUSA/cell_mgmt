@@ -62,13 +62,21 @@ gulp.task("init-android", function () {
 
         // replace app icons
         console.log("Replacing app icons...");
-        gulp.src("resources/icon.png")
+        gulp.src("resources/icon-96.png")
             .pipe(gulp.dest("platforms/android/res/drawable/"))
             .pipe(gulp.dest("platforms/android/res/drawable-xhdpi/"));
 
         gulp.src("resources/icon-72.png")
             .pipe(plugins.rename("icon.png"))
             .pipe(gulp.dest("platforms/android/res/drawable-hdpi/"));
+
+        gulp.src("resources/icon-48.png")
+            .pipe(plugins.rename("icon.png"))
+            .pipe(gulp.dest("platforms/android/res/drawable-mdpi/"));
+
+        gulp.src("resources/icon-36.png")
+            .pipe(plugins.rename("icon.png"))
+            .pipe(gulp.dest("platforms/android/res/drawable-ldpi/"));
     });
 });
 
