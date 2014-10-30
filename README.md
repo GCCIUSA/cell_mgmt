@@ -17,19 +17,18 @@ After all requirements are met, do following:
 2. install Node.js packages
     1. run `npm install` to required packages
     2. run `gulp compile` to compile js, css, imgages and fonts
-    3. run `gulp watch` to monitor file changes and re-compile automatically
-3. run `gulp init-android` to install Cordova platform and plugins 
-4. run `gulp build-android` to build, or `gulp run-android` to run on device/emulator
-
-Note: run `gulp compile` to compile resources manually if necessary.
+3. run `gulp init-android` to install Cordova platform and plugins
+4. run `gulp build-android` to build
+ 
+## Developing
+- developing using browser
+    1. run `gulp watch` to monitor file changes and re-compile automatically
+- developing using emulator or device
+    1. run `gulp run-android` to run on device/emulator
 
 ## release and sign
-
-1. run `cordova build --release android`
-2. go to `platform/android/ant-build/`
-3. run `jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore release-key.keystore CordovaApp-release-unsigned.apk alias_name`
-4. run `zipalign -v 4 CordovaApp-release-unsigned.apk cgb.apk`
-    - note, zipalign is in `android-sdk/build-tools/x.x.x/`
+1. run `gulp release-android -p <keystore password>`
+2. The apk file is in `platforms/android/ant-build/cgb.apk`
 
 ## Product Backlog
 
