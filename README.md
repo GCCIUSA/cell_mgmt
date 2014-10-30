@@ -8,8 +8,6 @@ Cell Group Book
 - Android SDK
 - Java
 
-Refer to Cordova Document - Platform Guide for details
-
 ## Set Up Development Environment
 After all requirements are met, do following:
 
