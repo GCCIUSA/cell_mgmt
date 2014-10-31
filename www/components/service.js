@@ -1,6 +1,10 @@
 cgb
     .factory("util", ["$rootScope", "$ionicLoading",
         function ($rootScope, $ionicLoading) {
+            var isBlank = function (data) {
+                return data === undefined || data === null || data === "";
+            };
+
             return {
                 "loading": function (type) {
                     if (type === "on") {
@@ -10,6 +14,9 @@ cgb
                         $ionicLoading.hide();
                     }
                 },
+                "isBlank": function (data) {
+                    return isBlank(data);
+                },
                 "formatPhone": function (phone) {
                     if (phone !== undefined && phone.length === 10) {
                         return "(" + phone.substr(0, 3) + ") " + phone.substr(3, 3) + "-" + phone.substr(6);
@@ -17,7 +24,7 @@ cgb
                     return phone;
                 },
                 "formatDob": function (dob) {
-                    if (dob !== undefined) {
+                    if (!isBlank(dob)) {
                         var splitted = dob.split("/");
 
                         if (dob.substr(0, 1) === "0") {

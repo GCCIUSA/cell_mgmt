@@ -7,8 +7,7 @@ gulp.task("js", function () {
         "www/libs/ionic/js/ionic.bundle.min.js",
         "www/libs/ionic/js/ng-cordova.min.js",
         "www/libs/firebase/firebase.js",
-        "www/libs/firebase/angularfire.min.js"
-    ]);
+        "www/libs/firebase/angularfire.min.js"]);
 
     var custom = gulp.src(["www/components/*.js", "www/controllers/*.js"])
         .pipe(plugins.uglify({ preserveComments: "some" }));
@@ -63,6 +62,7 @@ gulp.task("init-android", function () {
         // replace app icons
         console.log("Replacing app icons...");
         gulp.src("resources/icon-96.png")
+            .pipe(plugins.rename("icon.png"))
             .pipe(gulp.dest("platforms/android/res/drawable/"))
             .pipe(gulp.dest("platforms/android/res/drawable-xhdpi/"));
 

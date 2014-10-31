@@ -15,30 +15,40 @@ cgb
                 $scope.member = util.getMember($state.params.memberId);
 
                 $scope.update = function () {
-                    util.loading("on");
-                    var data = {
-                        "cnName": $scope.member.cnName,
-                        "enName": $scope.member.enName,
-                        "dob": util.formatDob($scope.member.dob),
-                        "email": $scope.member.email,
-                        "phone": $scope.member.phone
-                    };
-                    api.member.update($state.params.memberId, util.formatJSON(data)).then(function () {
-                        $scope.$emit("DATA_RELOAD", "members");
-                        $state.go("member.list");
-                    });
+                    if (util.isBlank($scope.member.enName) && util.isBlank($scope.member.cnName)) {
+                        window.navigator.notification.alert("請輸入中文名或英文名");
+                    }
+                    else {
+                        util.loading("on");
+                        var data = {
+                            "cnName": $scope.member.cnName,
+                            "enName": $scope.member.enName,
+                            "dob": util.formatDob($scope.member.dob),
+                            "email": $scope.member.email,
+                            "phone": $scope.member.phone
+                        };
+                        api.member.update($state.params.memberId, util.formatJSON(data)).then(function () {
+                            $scope.$emit("DATA_RELOAD", "members");
+                            $state.go("member.list");
+                        });
+                    }
                 };
             }
             else {
                 $scope.isNew = true;
 
                 $scope.create = function () {
-                    util.loading("on");
-                    $scope.member.dob = util.formatDob($scope.member.dob);
-                    api.member.create(util.formatJSON($scope.member)).then(function () {
-                        $scope.$emit("DATA_RELOAD", "members");
-                        $state.go("member.list");
-                    });
+                    if ($scope.member === undefined || util.isBlank($scope.member.enName) && util.isBlank($scope.member.cnName)) {
+                        window.navigator.notification.alert("請輸入中文名或英文名");
+                    }
+                    else {
+                        util.loading("on");
+                        $scope.member.dob = util.formatDob($scope.member.dob);
+                        api.member.create(util.formatJSON($scope.member)).then(function () {
+                            $scope.$emit("DATA_RELOAD", "members");
+                            $state.go("member.list");
+                        });
+                    }
                 };
             }
         }
@@ -63,6 +73,10 @@ cgb
                     }
                 }, "Confirm", "Cancel,OK");
             };
+
+            $scope.isBlank = function (data) {
+                return util.isBlank(data);
+            };
         }
     ])
 
@@ -77,14 +91,14 @@ cgb
             }
 
             for (i = 0; i < $rootScope.data.members.length; i++) {
-                if ($rootScope.data.members[i].dob !== undefined) {
+                if (!util.isBlank($rootScope.data.members[i].dob)) {
                     $scope.bdList[$rootScope.data.members[i].dob.split("/")[0] - 1].push($rootScope.data.members[i]);
                 }
                 else {
                     $scope.bdList[$scope.bdList.length - 1].push($rootScope.data.members[i]);
                 }
             }
-            for (i = 0; i < $scope.bdList.length; i++) {
+            for (i = 0; i < $scope.bdList.length - 1; i++) {
                 $scope.bdList[i].sort(function (a, b) {
                     return a.dob.split("/")[1] - b.dob.split("/")[1];
                 });

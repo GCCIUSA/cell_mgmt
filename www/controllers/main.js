@@ -39,7 +39,7 @@ cgb
                     else if (state === "member.list" || state === "member.bd" || state === "member.login") {
                         $state.go("home");
                     }
-                    else if (state === "member.view" || state === "member.edit") {
+                    else if (state === "member.view" || state === "member.edit" || state === "member.new") {
                         navigator.app.backHistory();
                     }
                     // bank views
