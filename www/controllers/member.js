@@ -4,6 +4,10 @@ cgb
             $scope.formatPhone = function (phone) {
                 return util.formatPhone(phone);
             };
+
+            $scope.getMemberName = function (member) {
+                return util.getMemberName(member);
+            };
         }
     ])
 

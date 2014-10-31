@@ -61,13 +61,13 @@ cgb
                     }
                 },
                 "getMemberName": function (member) {
-                    if (member.enName !== undefined && member.cnName !== undefined) {
+                    if (!isBlank(member.enName) && !isBlank(member.cnName)) {
                         return member.cnName + " (" + member.enName + ")";
                     }
-                    if (member.enName === undefined) {
+                    if (isBlank(member.enName)) {
                         return member.cnName;
                     }
-                    if (member.cnName === undefined) {
+                    if (isBlank(member.cnName)) {
                         return member.enName;
                     }
                 },
