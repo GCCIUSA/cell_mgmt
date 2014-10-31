@@ -96,7 +96,7 @@ gulp.task("release-android", ["compile"], function () {
         plugins.run("cordova build --release android").exec(function () {
             plugins.run("jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore release-key.keystore -storepass " + args[1] + " " + apkPath + "CordovaApp-release-unsigned.apk alias_name").exec(function () {
                 plugins.run("rm " + apkPath + "cgb.apk").exec(function () {
-                    plugins.run("./zipalign -v 4 " + apkPath + "CordovaApp-release-unsigned.apk " + apkPath + "cgb.apk").exec();
+                    plugins.run("zipalign -v 4 " + apkPath + "CordovaApp-release-unsigned.apk " + apkPath + "cgb.apk").exec();
                 });
             });
         });

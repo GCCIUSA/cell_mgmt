@@ -7,43 +7,53 @@ cgb
                 $scope.group = $rootScope.data.group;
 
                 $scope.update = function () {
-                    util.loading("on");
-                    var data = {
-                        "name": $scope.group.name,
-                        "lang": $scope.group.lang,
-                        "location": $scope.group.location,
-                        "schedule": $scope.group.schedule,
-                        "password": $scope.group.password
-                    };
+                    if ($scope.group === undefined || util.isBlank($scope.group.name)) {
+                        window.navigator.notification.alert("請輸入小組名稱");
+                    }
+                    else {
+                        util.loading("on");
+                        var data = {
+                            "name": $scope.group.name,
+                            "lang": $scope.group.lang,
+                            "location": $scope.group.location,
+                            "schedule": $scope.group.schedule,
+                            "password": $scope.group.password
+                        };
 
-                    api.group.update(util.formatJSON(data)).then(function () {
-                        $scope.$emit("DATA_RELOAD", "group");
-                        $state.go("group.view");
-                    });
+                        api.group.update(util.formatJSON(data)).then(function () {
+                            $scope.$emit("DATA_RELOAD", "group");
+                            $state.go("group.view");
+                        });
+                    }
                 };
             }
             else {
                 $scope.isNew = true;
 
                 $scope.create = function () {
-                    navigator.notification.confirm("Are you sure to create this group?", function (btnIndex) {
-                        if (btnIndex === 2) {
-                            util.loading("on");
-                            api.group.create(util.formatJSON($scope.group)).then(function (ref) {
-                                $cordovaFile.writeFile($rootScope.dataFile, ref.name(), { append: false }).then(
-                                    function () {
-                                        $rootScope.groupId = ref.name();
-                                        $scope.$emit("DATA_RELOAD");
-                                        $state.go("group.view");
-                                    },
-                                    function () {
-                                        util.loading("off");
-                                        window.navigator.notification.alert("無法寫入小組數據");
-                                    }
-                                );
-                            });
-                        }
-                    }, "Confirm", ["Cancel", "OK"]);
+                    if ($scope.group === undefined || util.isBlank($scope.group.name)) {
+                        window.navigator.notification.alert("請輸入小組名稱");
+                    }
+                    else {
+                        navigator.notification.confirm("確定創建小組嗎？", function (btnIndex) {
+                            if (btnIndex === 2) {
+                                util.loading("on");
+                                api.group.create(util.formatJSON($scope.group)).then(function (ref) {
+                                    $cordovaFile.writeFile($rootScope.dataFile, ref.name(), { append: false }).then(
+                                        function () {
+                                            $rootScope.groupId = ref.name();
+                                            $scope.$emit("DATA_RELOAD");
+                                            $state.go("group.view");
+                                        },
+                                        function () {
+                                            util.loading("off");
+                                            window.navigator.notification.alert("無法寫入小組數據");
+                                        }
+                                    );
+                                });
+                            }
+                        }, "Confirm", ["Cancel", "OK"]);
+                    }
                 };
             }
         }
@@ -52,7 +62,7 @@ cgb
     .controller("GroupJoinCtrl", ["$scope", "$rootScope", "api", "$state", "$cordovaFile", "util",
         function ($scope, $rootScope, api, $state, $cordovaFile, util) {
             $scope.join = function () {
-                if ($scope.joinGroupId !== undefined && $scope.joinGroupId !== "") {
+                if (!util.isBlank($scope.joinGroupId)) {
                     // check if group exists
                     util.loading("on");
                     api.group.get($scope.joinGroupId).$loaded().then(function (data) {
