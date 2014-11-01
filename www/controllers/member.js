@@ -34,7 +34,7 @@ cgb
                         api.member.update($state.params.memberId, util.formatJSON(data)).then(function () {
                             $scope.$emit("DATA_RELOAD", "members");
                             $state.go("member.list");
-                        });
+                        }, function () { util.dataError(); });
                     }
                 };
             }
@@ -51,7 +51,7 @@ cgb
                         api.member.create(util.formatJSON($scope.member)).then(function () {
                             $scope.$emit("DATA_RELOAD", "members");
                             $state.go("member.list");
-                        });
+                        }, function () { util.dataError(); });
                     }
                 };
             }
@@ -73,7 +73,7 @@ cgb
                         api.member.delete($state.params.memberId).then(function () {
                             $scope.$emit("DATA_RELOAD", "members");
                             $state.go("member.list");
-                        });
+                        }, function () { util.dataError(); });
                     }
                 }, "Confirm", "Cancel,OK");
             };
@@ -133,7 +133,7 @@ cgb
                         $rootScope.loggedIn = false;
                         $scope.showErrMsg = true;
                     }
-                });
+                }, function () { util.dataError(); });
             };
         }
     ])

@@ -16,7 +16,7 @@ cgb
                         api.bank.delete($state.params.transactionId).then(function () {
                             $scope.$emit("DATA_RELOAD", "bank");
                             $state.go("bank.list");
-                        });
+                        }, function () { util.dataError(); });
                     }
                 }, "Confirm", "Cancel,OK");
             };
@@ -38,7 +38,7 @@ cgb
                     api.bank.create(util.formatJSON($scope.transaction)).then(function () {
                         $scope.$emit("DATA_RELOAD", "bank");
                         $state.go("bank.list");
-                    });
+                    }, function () { util.dataError(); });
                 };
             }
             else {
@@ -58,7 +58,7 @@ cgb
                     api.bank.update($state.params.transactionId, util.formatJSON(data)).then(function () {
                         $scope.$emit("DATA_RELOAD", "bank");
                         $state.go("bank.list");
-                    });
+                    }, function () { util.dataError(); });
                 };
             }
         }

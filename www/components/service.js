@@ -14,6 +14,10 @@ cgb
                         $ionicLoading.hide();
                     }
                 },
+                "dataError": function () {
+                    $ionicLoading.hide();
+                    window.navigator.notification.alert("數據服務暫時不可用，請稍後再試。若有問題，請聯繫開發人員。");
+                },
                 "isBlank": function (data) {
                     return isBlank(data);
                 },

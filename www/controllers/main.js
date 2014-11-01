@@ -75,7 +75,7 @@ cgb
                                             $scope.reload();
                                             $state.go("group.view");
                                         }
-                                    });
+                                    }, function () { util.dataError(); });
                                 }
                             },
                             function () {
@@ -108,7 +108,7 @@ cgb
                         api.group.get().$loaded().then(function (data) {
                             $rootScope.data.group = data;
                             loadComplete();
-                        });
+                        }, function () { util.dataError(); });
                     }
                     if (type === undefined || type === "members") {
                         api.member.list().$loaded().then(function (data) {
@@ -138,7 +138,7 @@ cgb
                                         });
                                     }
                                 }
-                            });
+                            }, function () { util.dataError(); });
 
                             loadComplete();
                         });
@@ -161,7 +161,7 @@ cgb
                             }
                             $rootScope.data.balance = $rootScope.data.balance.toFixed(2);
                             loadComplete();
-                        });
+                        }, function () { util.dataError(); });
                     }
 
                     var loadComplete = function () {

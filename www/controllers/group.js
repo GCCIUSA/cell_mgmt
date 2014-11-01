@@ -23,7 +23,7 @@ cgb
                         api.group.update(util.formatJSON(data)).then(function () {
                             $scope.$emit("DATA_RELOAD", "group");
                             $state.go("group.view");
-                        });
+                        }, function () { util.dataError(); });
                     }
                 };
             }
@@ -50,7 +50,7 @@ cgb
                                             window.navigator.notification.alert("無法寫入小組數據");
                                         }
                                     );
-                                });
+                                }, function () { util.dataError(); });
                             }
                         }, "Confirm", ["Cancel", "OK"]);
                     }
@@ -86,7 +86,7 @@ cgb
                                 }
                             );
                         }
-                    });
+                    }, function () { util.dataError(); });
                 }
                 else {
                     $scope.showErrMsg = true;
