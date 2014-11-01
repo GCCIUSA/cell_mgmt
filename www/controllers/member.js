@@ -107,6 +107,10 @@ cgb
                     return a.dob.split("/")[1] - b.dob.split("/")[1];
                 });
             }
+            // do not show 'Unknown' if it's empty
+            if ($scope.bdList[$scope.bdList.length - 1].length === 0) {
+                $scope.bdList.splice($scope.bdList.length - 1, 1);
+            }
 
             $scope.showName = function (member) {
                 return util.getMemberName(member);
