@@ -88,8 +88,9 @@ cgb
         function ($scope, $rootScope, util) {
             var i;
 
-            $scope.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Unknown"];
+            $scope.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             $scope.bdList = new Array($scope.months.length);
+            $scope.unknownList = [];
             for (i = 0; i < $scope.bdList.length; i++) {
                 $scope.bdList[i] = [];
             }
@@ -99,17 +100,13 @@ cgb
                     $scope.bdList[$rootScope.data.members[i].dob.split("/")[0] - 1].push($rootScope.data.members[i]);
                 }
                 else {
-                    $scope.bdList[$scope.bdList.length - 1].push($rootScope.data.members[i]);
+                    $scope.unknownList.push($rootScope.data.members[i]);
                 }
             }
-            for (i = 0; i < $scope.bdList.length - 1; i++) {
+            for (i = 0; i < $scope.bdList.length; i++) {
                 $scope.bdList[i].sort(function (a, b) {
                     return a.dob.split("/")[1] - b.dob.split("/")[1];
                 });
-            }
-            // do not show 'Unknown' if it's empty
-            if ($scope.bdList[$scope.bdList.length - 1].length === 0) {
-                $scope.bdList.splice($scope.bdList.length - 1, 1);
             }
 
             $scope.showName = function (member) {
