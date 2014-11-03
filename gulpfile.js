@@ -59,6 +59,7 @@ gulp.task("init-android", function () {
         plugins.run("cordova plugin add org.apache.cordova.file").exec();
         plugins.run("cordova plugin add https://github.com/VersoSolutions/CordovaClipboard").exec();
         plugins.run("cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git").exec();
+        plugins.run("cordova plugin add org.apache.cordova.media").exec();
 
         // replace app icons
         console.log("Replacing app icons...");
