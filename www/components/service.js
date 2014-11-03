@@ -21,6 +21,12 @@ cgb
                 "isBlank": function (data) {
                     return isBlank(data);
                 },
+                "formatTime": function (totalSeconds) {
+                    var hours = parseInt(totalSeconds / 60);
+                    var seconds = parseInt(totalSeconds % 60, 10);
+
+                    return hours + ":" + (seconds < 10 ? "0" + seconds : seconds);
+                },
                 "formatPhone": function (phone) {
                     if (phone !== undefined && phone.length === 10) {
                         return "(" + phone.substr(0, 3) + ") " + phone.substr(3, 3) + "-" + phone.substr(6);

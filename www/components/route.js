@@ -20,6 +20,11 @@ cgb
                     "templateUrl": setView("message"),
                     "controller": "MsgCtrl"
                 })
+                .state("qt", {
+                    "url": "/qt",
+                    "templateUrl": setView("qt"),
+                    "controller": "QtCtrl"
+                })
 
                 // group
                 .state("group", {
