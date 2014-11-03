@@ -4,6 +4,7 @@ var streamqueue = require("streamqueue");
 
 gulp.task("js", function () {
     var lib = gulp.src([
+        "www/libs/jquery/jquery-2.1.1.min.js",
         "www/libs/ionic/js/ionic.bundle.min.js",
         "www/libs/ionic/js/ng-cordova.min.js",
         "www/libs/firebase/firebase.js",

@@ -13,6 +13,9 @@ cgb
                             }
                         }, "Confirm", ["Cancel", "OK"]);
                     }
+                    else if (state === "message") {
+                        $state.go("home");
+                    }
                     // group views
                     else if (state === "group.join") {
                         if ($rootScope.groupId === null) {
@@ -47,6 +50,9 @@ cgb
                         $state.go("home");
                     }
                     else if (state === "bank.view" || state === "bank.edit") {
+                        navigator.app.backHistory();
+                    }
+                    else {
                         navigator.app.backHistory();
                     }
                 }, 100);
@@ -201,9 +207,44 @@ cgb
         }
     ])
 
-    .controller("HomeCtrl", ["$scope", "$rootScope", "$state",
-        function ($scope, $rootScope, $state) {
+    .controller("HomeCtrl", [
+        function () {
 
+        }
+    ])
+
+    .controller("MsgCtrl", ["$scope", "util",
+        function ($scope, util) {
+            util.loading("on");
+            $scope.messages = [];
+            var url = "http://www.gcciusa.com";
+            $.ajax({
+                dataType: "json",
+                url: 'http://whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?',
+                success: function (data) {
+                    var html = "" + data.contents;
+                    var list = html.match(/<div id="body_maincontent_object_c_body_element">([\s]*?)<ul>([\s\S]*?)<\/ul>([\s]*?)<\/div>/);
+
+                    if (list === null) {
+
+                    }
+                    else {
+                        var link, title;
+                        $(list[0]).find("ul").find("div").each(function () {
+                            link = $.trim($(this).find("a").attr("href").split(",")[1]).replace(/'/g, "");
+                            link = "http://www.gcciusa.com" + link;
+                            title = $(this).text();
+                            $scope.$apply(function () {
+                                $scope.messages.push({ "link": link, "title": title});
+                            });
+                        });
+                        util.loading("off");
+                    }
+                },
+                error: function () {
+
+                }
+            });
         }
     ])
 ;

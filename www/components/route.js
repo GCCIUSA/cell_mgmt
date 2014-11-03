@@ -15,6 +15,11 @@ cgb
                     "templateUrl": setView("home"),
                     "controller": "HomeCtrl"
                 })
+                .state("message", {
+                    "url": "/message",
+                    "templateUrl": setView("message"),
+                    "controller": "MsgCtrl"
+                })
 
                 // group
                 .state("group", {
