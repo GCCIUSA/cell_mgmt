@@ -13,7 +13,7 @@ cgb
                             }
                         }, "Confirm", ["Cancel", "OK"]);
                     }
-                    else if (state === "message") {
+                    else if (state === "message" || state === "qt") {
                         $state.go("home");
                     }
                     // group views
@@ -288,75 +288,82 @@ cgb
             $.get(url, function (data) {
                 var list = data.responseText.match(/<div id="body_maincontent_object_c_body_element">([\s]*?)<ul>([\s\S]*?)<\/ul>([\s]*?)<\/div>/);
 
-                var link, title, messages = [];
-                $(list[0]).find("ul").find("div").each(function () {
-                    link = $.trim($(this).find("a").attr("href").split(",")[1]).replace(/'/g, "").replace(/\%20/g, "");
-                    link = "http://www.gcciusa.com" + $.trim(link);
-                    $(this).find("span").remove();
-                    title = $(this).text();
-                    messages.push({ "link": link, "title": title});
-                });
-                $scope.$apply(function () {
-                    $scope.messages = messages;
-                });
+                if (list === null) {
+                    window.navigator.notification.alert("無法獲取內容，請稍後再試");
+                }
+                else {
+                    var link, title, messages = [];
+                    $(list[0]).find("ul").find("div").each(function () {
+                        link = $.trim($(this).find("a").attr("href").split(",")[1]).replace(/'/g, "").replace(/\%20/g, "");
+                        link = "http://www.gcciusa.com" + $.trim(link);
+                        $(this).find("span").remove();
+                        title = $(this).text();
+                        messages.push({ "link": link, "title": title});
+                    });
+                    $scope.$apply(function () {
+                        $scope.messages = messages;
+                    });
+                }
             })
             .fail(function() {
-                window.navigator.notification.alert("無法獲取內容，請稍後再試" );
+                window.navigator.notification.alert("無法獲取內容，請稍後再試");
             })
             .always(function() {
                 util.loading("off");
             });
-            /*
-            $.ajax({
-                dataType: "json",
-                url: 'http://whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?',
-                success: function (data) {
-                    var html = "" + data.contents;
-                    var list = html.match(/<div id="body_maincontent_object_c_body_element">([\s]*?)<ul>([\s\S]*?)<\/ul>([\s]*?)<\/div>/);
-
-                    if (list === null) {
-
-                    }
-                    else {
-                        var link, title, messages = [];
-                        $(list[0]).find("ul").find("div").each(function () {
-                            link = $.trim($(this).find("a").attr("href").split(",")[1]).replace(/'/g, "");
-                            link = "http://www.gcciusa.com" + link;
-                            $(this).find("span").remove();
-                            title = $(this).text();
-                            messages.push({ "link": link, "title": title});
-                        });
-                        $scope.$apply(function () {
-                            $scope.messages = messages;
-                        });
-                        util.loading("off");
-                    }
-                },
-                error: function () {
-                    util.loading("off");
-                }
-            }); */
         }
     ])
 
     .controller("QtCtrl", ["$scope", "util",
         function ($scope, util) {
-            util.loading("on");
-            var url = "http://chinese.cgntv.net/sub.asp?pid=28";
-            $.get(url, function (data) {
-                var matched = data.responseText.match(/<p>([\s]*?)<\/p>([\s]*?)<p>([\s\S]*?)<br\/>([\s\S]*?)<\/p>/);
-                var html = $("<div>" + matched[0] + "</div>");
+            $scope.selectedId = null;
 
-                $scope.$apply(function () {
-                    $scope.content = $(html.find("p").get(1)).html();
+            var getContent = function (id) {
+                util.loading("on");
+                var url = "http://chinese.cgntv.net/sub.asp?pid=28" + (id === undefined ? "" : "&vno=" + id);
+                $scope.content = "";
+
+                $.get(url, function (data) {
+                    var matched = data.responseText.match(/<p>([\s]*?)<\/p>([\s]*?)<p>([\s\S]*?)<br\/>([\s\S]*?)<\/p>/);
+                    var matched_id = data.responseText.match(/<td align="center" height="25" id="tag1">([\s\S]*?)<\/td>/g);
+                    var matched_date = data.responseText.match(/<td align="center" id="tag4">([\s\S]*?)<\/td>/g);
+
+                    if (matched === null || matched_id === null || matched_date === null) {
+                        window.navigator.notification.alert("無法獲取內容，請稍後再試");
+                    }
+                    else {
+                        var html = $("<div>" + matched[0] + "</div>");
+                        var others = [];
+
+                        for (var i = 0; i < matched_date.length; i++) {
+                            others.push({
+                                "date": $.trim($("<div>" + matched_date[i] + "</div>").text()).substr(5),
+                                "id": $.trim($("<div>" + matched_id[i] + "</div>").text())
+                            });
+                        }
+
+                        $scope.$apply(function () {
+                            $scope.content = $(html.find("p").get(1)).html();
+                            $scope.others = others;
+                            if (id === undefined) {
+                                $scope.selectedId = $scope.others[0].id;
+                            }
+                        });
+                    }
+                })
+                .fail(function() {
+                    window.navigator.notification.alert("無法獲取內容，請稍後再試");
+                })
+                .always(function() {
+                    util.loading("off");
                 });
-            })
-            .fail(function() {
-                window.navigator.notification.alert("無法獲取內容，請稍後再試" );
-            })
-            .always(function() {
-                util.loading("off");
-            });
+            };
+            getContent();
+
+            $scope.selectDate = function (item) {
+                $scope.selectedId = item.id;
+                getContent(item.id);
+            };
         }
     ])
 ;
