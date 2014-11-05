@@ -213,14 +213,21 @@ cgb
         }
     ])
 
-    .controller("MsgCtrl", ["$scope", "$interval", "util", "$state",
-        function ($scope, $interval, util, $state) {
+    .controller("MsgCtrl", ["$scope", "$interval", "util", "$state", "$ionicPlatform",
+        function ($scope, $interval, util, $state, $ionicPlatform) {
             // control message playback
             var media = null, timer = null;
             $scope.duration = 1;
             $scope.position = 0;
             $scope.status = 0;
             $scope.messageSrc = null;
+
+            $ionicPlatform.on("pause", function () {
+                if (media !== null) {
+                    media.pause();
+                    $interval.cancel(media);
+                }
+            });
 
             var setTimer = function () {
                 timer = $interval(function () {
@@ -251,6 +258,7 @@ cgb
                     $scope.status = status;
                 });
 
+                $interval.cancel(media);
                 setTimer();
 
                 media.play();
@@ -267,6 +275,13 @@ cgb
                 event.stopPropagation();
                 media.play();
                 setTimer();
+            };
+
+            $scope.restartAudio = function (event) {
+                event.stopPropagation();
+                var tmpSrc = $scope.messageSrc;
+                $scope.messageSrc = null;
+                $scope.playAudio(tmpSrc);
             };
 
             $scope.formatTime = function (totalSeconds) {
