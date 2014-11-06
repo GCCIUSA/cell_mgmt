@@ -349,7 +349,7 @@ cgb
 
             var getContent = function (id) {
                 util.loading("on");
-                var url = "http://chinese.cgntv.net/sub.asp?pid=28" + (id === undefined ? "" : "&vno=" + id);
+                var url = "http://chinese.cgntv.net/sub.asp?pid=28" + (id === null ? "" : "&vno=" + id);
                 $scope.content = "";
 
                 $.get(url, function (data) {
@@ -387,7 +387,7 @@ cgb
                     util.loading("off");
                 });
             };
-            getContent();
+            getContent($scope.selectedId);
 
             var dataError = function () {
                 window.navigator.notification.confirm("無法獲取內容，請再試一次", function (btnIndex) {
@@ -395,7 +395,7 @@ cgb
                         $state.go("home");
                     }
                     else if (btnIndex === 2) {
-                        getContent();
+                        getContent($scope.selectedId);
                     }
                 }, "Confirm", ["取消", "重試"]);
             };
