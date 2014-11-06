@@ -297,40 +297,54 @@ cgb
             };
 
             // load all messages
-            util.loading("on");
-            $scope.messages = [];
             var url = "http://www.gcciusa.com";
-            $.get(url, function (data) {
-                var list = data.responseText.match(/<div id="body_maincontent_object_c_body_element">([\s]*?)<ul>([\s\S]*?)<\/ul>([\s]*?)<\/div>/);
+            var loadData = function () {
+                util.loading("on");
+                $scope.messages = [];
+                $.get(url, function (data) {
+                    var list = data.responseText.match(/<div id="body_maincontent_object_c_body_element">([\s]*?)<ul>([\s\S]*?)<\/ul>([\s]*?)<\/div>/);
 
-                if (list === null) {
-                    window.navigator.notification.alert("無法獲取內容，請稍後再試");
-                }
-                else {
-                    var link, title, messages = [];
-                    $(list[0]).find("ul").find("div").each(function () {
-                        link = $.trim($(this).find("a").attr("href").split(",")[1]).replace(/'/g, "").replace(/\%20/g, "");
-                        link = "http://www.gcciusa.com" + $.trim(link);
-                        $(this).find("span").remove();
-                        title = $(this).text();
-                        messages.push({ "link": link, "title": title});
-                    });
-                    $scope.$apply(function () {
-                        $scope.messages = messages;
-                    });
-                }
-            })
-            .fail(function() {
-                window.navigator.notification.alert("無法獲取內容，請稍後再試");
-            })
-            .always(function() {
-                util.loading("off");
-            });
+                    if (list === null) {
+                        dataError();
+                    }
+                    else {
+                        var link, title, messages = [];
+                        $(list[0]).find("ul").find("div").each(function () {
+                            link = $.trim($(this).find("a").attr("href").split(",")[1]).replace(/'/g, "").replace(/\%20/g, "");
+                            link = "http://www.gcciusa.com" + $.trim(link);
+                            $(this).find("span").remove();
+                            title = $(this).text();
+                            messages.push({ "link": link, "title": title});
+                        });
+                        $scope.$apply(function () {
+                            $scope.messages = messages;
+                        });
+                    }
+                })
+                .fail(function() {
+                    dataError();
+                })
+                .always(function() {
+                    util.loading("off");
+                });
+            };
+            loadData();
+
+            var dataError = function () {
+                window.navigator.notification.confirm("無法獲取內容，請再試一次", function (btnIndex) {
+                    if (btnIndex === 1) {
+                        $state.go("home");
+                    }
+                    else if (btnIndex === 2) {
+                        loadData();
+                    }
+                }, "Confirm", ["取消", "重試"]);
+            };
         }
     ])
 
-    .controller("QtCtrl", ["$scope", "util",
-        function ($scope, util) {
+    .controller("QtCtrl", ["$scope", "util", "$state",
+        function ($scope, util, $state) {
             $scope.selectedId = null;
 
             var getContent = function (id) {
@@ -344,7 +358,7 @@ cgb
                     var matched_date = data.responseText.match(/<td align="center" id="tag4">([\s\S]*?)<\/td>/g);
 
                     if (matched === null || matched_id === null || matched_date === null) {
-                        window.navigator.notification.alert("無法獲取內容，請稍後再試");
+                        dataError();
                     }
                     else {
                         var html = $("<div>" + matched[0] + "</div>");
@@ -367,13 +381,24 @@ cgb
                     }
                 })
                 .fail(function() {
-                    window.navigator.notification.alert("無法獲取內容，請稍後再試");
+                    dataError();
                 })
                 .always(function() {
                     util.loading("off");
                 });
             };
             getContent();
+
+            var dataError = function () {
+                window.navigator.notification.confirm("無法獲取內容，請再試一次", function (btnIndex) {
+                    if (btnIndex === 1) {
+                        $state.go("home");
+                    }
+                    else if (btnIndex === 2) {
+                        getContent();
+                    }
+                }, "Confirm", ["取消", "重試"]);
+            };
 
             $scope.selectDate = function (item) {
                 $scope.selectedId = item.id;
