@@ -9,7 +9,9 @@ gulp.task("js", function () {
         "www/libs/ionic/js/ionic.bundle.min.js",
         "www/libs/ionic/js/ng-cordova.min.js",
         "www/libs/firebase/firebase.js",
-        "www/libs/firebase/angularfire.min.js"]);
+        "www/libs/firebase/angularfire.min.js",
+        "www/libs/angulartics/angulartics.min.js",
+        "www/libs/angulartics/angulartics-ga-cordova.js"]);
 
     var custom = gulp.src(["www/components/*.js", "www/controllers/*.js"])
         .pipe(plugins.uglify({ preserveComments: "some" }));
@@ -61,6 +63,7 @@ gulp.task("init-android", function () {
         plugins.run("cordova plugin add https://github.com/VersoSolutions/CordovaClipboard").exec();
         plugins.run("cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git").exec();
         plugins.run("cordova plugin add org.apache.cordova.media").exec();
+        plugins.run("cordova plugin add https://github.com/danwilson/google-analytics-plugin.git").exec();
 
         // replace app icons
         console.log("Replacing app icons...");

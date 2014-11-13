@@ -11,8 +11,8 @@ cgb
         }
     ])
 
-    .run(["$rootScope", "$ionicScrollDelegate",
-        function ($rootScope, $ionicScrollDelegate) {
+    .run(["$rootScope", "$ionicScrollDelegate", "$ionicPlatform", "$state",
+        function ($rootScope, $ionicScrollDelegate, $ionicPlatform, $state) {
             // data storage path
             $rootScope.dataFile = "cgb_data.dat";
 
@@ -28,6 +28,15 @@ cgb
             // scroll page to top on every state change
             $rootScope.$on("$stateChangeStart", function () {
                 $ionicScrollDelegate.scrollTop(true);
+            });
+
+            // google analytics
+            $ionicPlatform.ready(function () {
+                if (analytics !== undefined) {
+                    analytics.debugMode();
+                    analytics.startTrackerWithId("UA-56682607-2");
+                    analytics.trackView($state.current.name);
+                }
             });
         }
     ])
