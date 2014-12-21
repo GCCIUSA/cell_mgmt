@@ -102,9 +102,18 @@ gulp.task("release-android", ["compile"], function () {
         plugins.run("cordova build --release android").exec(function () {
             plugins.run("jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore release-key.keystore -storepass " + args[1] + " " + apkPath + "CordovaApp-release-unsigned.apk alias_name").exec(function () {
                 plugins.run("rm " + apkPath + "cgb.apk").exec(function () {
-                    plugins.run("zipalign -v 4 " + apkPath + "CordovaApp-release-unsigned.apk " + apkPath + "cgb.apk").exec();
+                    var opts = " -v 4 " + apkPath + "CordovaApp-release-unsigned.apk " + apkPath + "cgb.apk";
+                    if (process.platform === "win32") {
+                        plugins.run("zipalign" + opts).exec();
+                    }
+                    else if(process.platform === "darwin") {
+                        plugins.run("./zipalign" + opts).exec();
+                    }
                 });
             });
         });
+    }
+    else {
+        console.log("ERROR: Please provide storepass with [-p] arg");
     }
 });

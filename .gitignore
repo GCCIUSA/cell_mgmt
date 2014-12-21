@@ -4,3 +4,4 @@ node_modules
 cgb.iml
 platforms
 plugins
+.DS_Store
