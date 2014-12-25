@@ -12,7 +12,7 @@ cgb
     ])
 
     .run(["$rootScope", "$ionicScrollDelegate", "$ionicPlatform", "$state",
-        function ($rootScope, $ionicScrollDelegate) {
+        function ($rootScope, $ionicScrollDelegate, $ionicPlatform, $state) {
             // data storage path
             $rootScope.dataFile = "cgb_data.dat";
 

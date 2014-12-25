@@ -84,12 +84,12 @@
         <splash src="resources/ios/splash@2x~iphone.png" width="640" height="960"/>
         <splash src="resources/ios/splash-568h@2x~iphone.png" width="640" height="1136"/>
         <splash src="resources/ios/splash-667h@2x.png" width="750" height="1334"/>
-        <splash src="resources/ios/splash-Portrait-736h@3x.png" width="1242" height="2208"/>
-        <splash src="resources/ios/splash-Landscape-736h.png" width="2208" height="1242"/>
-        <splash src="resources/ios/splash-Portrait~ipad.png" width="768" height="1024"/>
-        <splash src="resources/ios/splash-Portrait@2x~ipad.png" width="1536" height="2048"/>
-        <splash src="resources/ios/splash-Landscape~ipad.png" width="1024" height="768"/>
         <splash src="resources/ios/splash-Landscape@2x~ipad.png" width="2048" height="1536"/>
+        <splash src="resources/ios/splash-Landscape-736h@3x.png" width="2208" height="1242"/>
+        <splash src="resources/ios/splash-Landscape~ipad.png" width="1024" height="768"/>
+        <splash src="resources/ios/splash-Portrait@2x~ipad.png" width="1536" height="2048"/>
+        <splash src="resources/ios/splash-Portrait-736h@3x.png" width="1242" height="2208"/>
+        <splash src="resources/ios/splash-Portrait~ipad.png" width="768" height="1024"/>
     </platform>
 
     <name>Cell Group Book</name>
