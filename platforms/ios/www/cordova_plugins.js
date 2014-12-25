@@ -1,13 +1,6 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/com.danielcwilson.plugins.googleanalytics/www/analytics.js",
-        "id": "com.danielcwilson.plugins.googleanalytics.UniversalAnalytics",
-        "clobbers": [
-            "analytics"
-        ]
-    },
-    {
         "file": "plugins/com.verso.cordova.clipboard/www/clipboard.js",
         "id": "com.verso.cordova.clipboard.Clipboard",
         "clobbers": [
@@ -210,14 +203,13 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "com.danielcwilson.plugins.googleanalytics": "0.6.0",
     "com.verso.cordova.clipboard": "0.1.0",
     "de.appplant.cordova.plugin.local-notification": "0.8.0dev",
     "nl.x-services.plugins.toast": "2.0.2",
     "org.apache.cordova.dialogs": "0.2.11-dev",
-    "org.apache.cordova.file": "1.3.1",
+    "org.apache.cordova.file": "1.3.2",
     "org.apache.cordova.media": "0.2.15",
-    "org.apache.cordova.device": "0.2.13-dev"
+    "org.apache.cordova.device": "0.2.14-dev"
 }
 // BOTTOM OF METADATA
 });

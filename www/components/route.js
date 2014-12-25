@@ -1,9 +1,6 @@
 cgb
-    .config(["$stateProvider", "$urlRouterProvider",
-        function ($stateProvider, $urlRouterProvider) {
-            // infinite loop if $rootScope.groupId is not set
-            // $urlRouterProvider.otherwise("/home");
-
+    .config(["$stateProvider",
+        function ($stateProvider) {
             var setView = function (path) {
                 return "views/" + path + ".html";
             };

@@ -215,6 +215,8 @@ cgb
 
     .controller("MsgCtrl", ["$scope", "$interval", "util", "$state", "$ionicPlatform",
         function ($scope, $interval, util, $state, $ionicPlatform) {
+            $scope.platform = ionic.Platform.platform();
+
             // control message playback
             var media = null, timer = null;
             $scope.duration = 1;
@@ -230,33 +232,51 @@ cgb
             });
 
             var setTimer = function () {
-                timer = $interval(function () {
-                    media.getCurrentPosition(
-                        function (position) {
-                            if (position > -1) {
-                                $scope.position = parseInt(position);
-                                $scope.duration = parseInt(media.getDuration());
-                            }
-                        },
-                        function (error) {
+                if ($scope.platform !== "ios") {
+                    timer = $interval(function () {
+                        media.getCurrentPosition(
+                            function (position) {
+                                if (position > -1) {
+                                    $scope.position = parseInt(position);
+                                    $scope.duration = parseInt(media.getDuration());
+                                }
+                            },
+                            function (error) {
 
-                        }
-                    );
-                }, 1000);
+                            }
+                        );
+                    }, 1000);
+                }
+                else {
+                    timer = $interval(function () {
+                        $scope.position = media.currentTime;
+                        $scope.duration = media.duration;
+                    }, 1000);
+                }
             };
 
             $scope.playAudio = function (src) {
                 if ($scope.messageSrc === src) {
                     return;
                 }
-                if (media !== null) {
-                    media.stop();
-                    media.release();
-                }
 
-                media = new Media(src, null, null, function (status) {
-                    $scope.status = status;
-                });
+                if ($scope.platform !== "ios") {
+                    if (media !== null) {
+                        media.stop();
+                        media.release();
+                    }
+
+                    media = new Media(src, null, null, function (status) {
+                        $scope.status = status;
+                    });
+                }
+                else {
+                    if (media !== null) {
+                        media.pause();
+                    }
+                    media = new Audio(src);
+                    $scope.status = 2;
+                }
 
                 $interval.cancel(media);
                 setTimer();
@@ -268,12 +288,14 @@ cgb
             $scope.pauseAudio = function (event) {
                 event.stopPropagation();
                 media.pause();
+                $scope.status = 3;
                 $interval.cancel(media);
             };
 
             $scope.resumeAudio = function (event) {
                 event.stopPropagation();
                 media.play();
+                $scope.status = 2;
                 setTimer();
             };
 
@@ -291,8 +313,14 @@ cgb
             // end media resource when exiting state
             $state.get("message").onExit = function () {
                 if (media !== null) {
-                    media.stop();
-                    media.release();
+                    if ($scope.platform !== "ios") {
+                        media.stop();
+                        media.release();
+                    }
+                    else {
+                        media.pause();
+                    }
+                    media = null;
                 }
             };
 
