@@ -67,7 +67,7 @@ function initPlugins(action) {
     plugins.run(cmd + action + " https://git-wip-us.apache.org/repos/asf/cordova-plugin-dialogs.git").exec();
     plugins.run(cmd + action + " https://github.com/VersoSolutions/CordovaClipboard").exec();
     plugins.run(cmd + action + " https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git").exec();
-    // plugins.run(cmd + action + " https://github.com/danwilson/google-analytics-plugin.git").exec();
+    plugins.run(cmd + action + " https://github.com/danwilson/google-analytics-plugin.git").exec();
     plugins.run(cmd + action + " org.apache.cordova.file").exec(function () {
         plugins.run(cmd + action + " org.apache.cordova.media").exec();
     });
