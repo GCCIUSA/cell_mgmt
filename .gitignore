@@ -3,4 +3,5 @@ www/assets
 node_modules
 cgb.iml
 plugins
+platforms
 .DS_Store
