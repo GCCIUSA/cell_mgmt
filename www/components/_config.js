@@ -31,13 +31,12 @@ cgb
             });
 
             // google analytics
-            /* $ionicPlatform.ready(function () {
+            $ionicPlatform.ready(function () {
                 if (analytics !== undefined) {
-                    analytics.debugMode();
                     analytics.startTrackerWithId("UA-56682607-2");
                     analytics.trackView($state.current.name);
                 }
-            }); */
+            });
         }
     ])
 ;
