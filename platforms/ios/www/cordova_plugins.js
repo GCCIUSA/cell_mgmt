@@ -8,13 +8,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification.js",
-        "id": "de.appplant.cordova.plugin.local-notification.LocalNotification",
-        "clobbers": [
-            "plugin.notification.local"
-        ]
-    },
-    {
         "file": "plugins/nl.x-services.plugins.toast/www/Toast.js",
         "id": "nl.x-services.plugins.toast.Toast",
         "clobbers": [
@@ -193,6 +186,13 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification.js",
+        "id": "de.appplant.cordova.plugin.local-notification.LocalNotification",
+        "clobbers": [
+            "plugin.notification.local"
+        ]
+    },
+    {
         "file": "plugins/org.apache.cordova.device/www/device.js",
         "id": "org.apache.cordova.device.device",
         "clobbers": [
@@ -204,11 +204,11 @@ module.exports.metadata =
 // TOP OF METADATA
 {
     "com.verso.cordova.clipboard": "0.1.0",
-    "de.appplant.cordova.plugin.local-notification": "0.8.0dev",
     "nl.x-services.plugins.toast": "2.0.2",
     "org.apache.cordova.dialogs": "0.2.11-dev",
     "org.apache.cordova.file": "1.3.2",
     "org.apache.cordova.media": "0.2.15",
+    "de.appplant.cordova.plugin.local-notification": "0.8.0dev",
     "org.apache.cordova.device": "0.2.14-dev"
 }
 // BOTTOM OF METADATA

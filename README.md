@@ -48,3 +48,7 @@ ok = [audioSession setCategory:AVAudioSessionCategoryPlayback error:&setCategory
 ```
 
 *It is also important to note that background audio does* **not** *work in the iOS Simulator...* **only** *on an actual device*
+
+## Xcode adjustment
+- make sure Target Membership of .m files in Plugins folder are checked
+- set `Enable Foundation Assertionss` in `Apple LLVM 6.0 - Preprocessing` in Build Settings to No
