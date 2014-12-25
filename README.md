@@ -29,14 +29,14 @@ After all requirements are met, do following:
 2. The apk file is at `platforms/android/ant-build/cgb.apk`
 
 ## Background Audio for iOS
-1. add the supported modes in your `<Projectname>-info.plist` (in this case, `Cell Group Book-info.plist`):
+1. add the supported modes in `<Projectname>-info.plist` (in this case, `Cell Group Book-info.plist`):
 ```
 <key>UIBackgroundModes</key>
 <array>
 	<string>audio</string>
 </array>
 ```
-2. import AVFoundation into your `AppDelegate.m` `#import <AVFoundation/AVFoundation.h>`
+2. import AVFoundation into `AppDelegate.m` `#import <AVFoundation/AVFoundation.h>`
 
 3. add the following to `application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions`
 
