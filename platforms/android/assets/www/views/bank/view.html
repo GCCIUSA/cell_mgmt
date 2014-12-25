@@ -1,0 +1,50 @@
+<div class="list">
+    <a class="item item-icon-left">
+        <i class="icon ion-log-in balanced" ng-if="transaction.type === '收入'"></i>
+        <i class="icon ion-log-out assertive" ng-if="transaction.type === '支出'"></i>
+        類別
+        <p ng-bind="transaction.type"></p>
+    </a>
+    <a class="item">
+        <h2>目的</h2>
+        <p ng-bind="transaction.purpose"></p>
+    </a>
+    <a class="item">
+        <h2>日期</h2>
+        <p ng-bind="transaction.date"></p>
+    </a>
+    <a class="item">
+        <h2>金額</h2>
+        <p ng-bind="transaction.amount"></p>
+    </a>
+    <a class="item">
+        <h2>備註</h2>
+        <p ng-bind="transaction.note"></p>
+    </a>
+</div>
+<div ng-if="loggedIn">
+    <div class="row">
+        <div class="col">
+            <a class="button button-block button-stable" ui-sref="bank.list">返回</a>
+        </div>
+        <div class="col">
+            <a class="button button-block button-positive" ui-sref="bank.edit({ 'transactionId': transaction.$id })">
+                修改
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a class="button button-block button-assertive ion-trash-b" ng-click="remove()">
+                刪除記錄
+            </a>
+        </div>
+    </div>
+</div>
+<div ng-if="!loggedIn">
+    <div class="row">
+        <div class="col">
+            <a class="button button-block button-stable" ui-sref="bank.list">返回</a>
+        </div>
+    </div>
+</div>

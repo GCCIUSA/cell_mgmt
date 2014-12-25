@@ -1,0 +1,16 @@
+<!-- <div class="range range-positive" ng-if="status > 0">
+    <i class="icon ion-ios7-play" ng-click="playAudio()" ng-if="status === 3"></i>
+    <i class="icon ion-ios7-pause" ng-click="pauseAudio()" ng-if="status === 2"></i>
+    <input type="range" min="0" max="{{duration}}" value="{{position}}"/>
+    {{formatTime(position)}}/{{formatTime(duration)}}
+</div> -->
+
+<div class="list">
+    <a class="item {{messageSrc === msg.link ? 'item-icon-left item-icon-right' : ''}}" ng-repeat="msg in messages" ng-click="playAudio(msg.link)">
+        <i class="icon ion-ios7-play" ng-click="resumeAudio($event)" ng-if="status === 3 && messageSrc === msg.link"></i>
+        <i class="icon ion-ios7-pause" ng-click="pauseAudio($event)" ng-if="status === 2 && messageSrc === msg.link"></i>
+        <h2 ng-bind="msg.title"></h2>
+        <p ng-if="status > 0 && messageSrc === msg.link">{{formatTime(position)}}/{{formatTime(duration)}}</p>
+        <i class="icon ion-ios7-loop-strong" ng-click="restartAudio($event)" ng-if="status === 3 && messageSrc === msg.link"></i>
+    </a>
+</div>

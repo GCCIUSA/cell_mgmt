@@ -1,0 +1,22 @@
+<div class="card" ng-repeat="members in bdList">
+    <div class="item item-divider">
+        {{months[$index]}}
+    </div>
+    <div class="item item-text-wrap">
+        <div class="row" ng-repeat="member in members">
+            <div class="col">{{member.dob}}</div>
+            <div class="col col-80">{{showName(member)}}</div>
+        </div>
+    </div>
+</div>
+<div class="card" ng-if="unknownList.length > 0">
+    <div class="item item-divider">
+        Unknown
+    </div>
+    <div class="item item-text-wrap">
+        <div class="row" ng-repeat="member in unknownList">
+            <div class="col"></div>
+            <div class="col col-80">{{showName(member)}}</div>
+        </div>
+    </div>
+</div>

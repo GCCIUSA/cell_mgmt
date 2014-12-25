@@ -1,0 +1,39 @@
+<div class="list">
+    <label class="item item-input item-select">
+        <div class="input-label">類別</div>
+        <select ng-model="transaction.type">
+            <option>收入</option>
+            <option>支出</option>
+        </select>
+    </label>
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">目的</span>
+        <input type="text" ng-model="transaction.purpose">
+    </label>
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">日期</span>
+        <input type="date" ng-model="transaction.date">
+    </label>
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">金額</span>
+        <input type="number" step="0.01" ng-model="transaction.amount">
+    </label>
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">備註</span>
+        <input type="text" ng-model="transaction.note">
+    </label>
+</div>
+<div class="row">
+    <div class="col">
+        <a class="button button-block button-stable" ng-if="isNew" ui-sref="bank.list">返回</a>
+        <a class="button button-block button-stable" ng-if="!isNew" ui-sref="bank.view({ 'transactionId': transaction.$id })">返回</a>
+    </div>
+    <div class="col">
+        <button class="button button-block button-positive" ng-click="create()" ng-if="isNew">
+            記賬
+        </button>
+        <button class="button button-block button-positive" ng-click="update()" ng-if="!isNew">
+            完成修改
+        </button>
+    </div>
+</div>
