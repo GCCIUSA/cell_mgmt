@@ -2,6 +2,8 @@ var gulp = require("gulp");
 var plugins = require("gulp-load-plugins")();
 var streamqueue = require("streamqueue");
 
+// source code compilation
+
 gulp.task("js", function () {
     var lib = gulp.src([
         "www/libs/jquery/jquery-2.1.1.min.js",
@@ -54,6 +56,7 @@ gulp.task("watch", function () {
 
 gulp.task("compile", ["css", "js", "fonts", "images"]);
 
+// cordova plugins
 
 /**
  * @param action - "add" or "rm"
@@ -79,12 +82,6 @@ gulp.task("rm-plugins", function () {
 });
 
 // Android Environment
-
-gulp.task("init-android", function () {
-    plugins.run("cordova platform add android").exec(function () {
-        initPlugins("add");
-    });
-});
 
 gulp.task("build-android", ["compile"], function () {
     plugins.run("cordova build android").exec();
@@ -119,12 +116,6 @@ gulp.task("release-android", ["compile"], function () {
 });
 
 // iOS Environment
-
-gulp.task("init-ios", function () {
-    plugins.run("cordova platform add ios").exec(function () {
-        initPlugins("add");
-    });
-});
 
 gulp.task("build-ios", ["compile"], function () {
     plugins.run("cordova build ios").exec();
