@@ -24,6 +24,27 @@ After all requirements are met, do following:
 - developing using emulator or device
     - run `gulp run-android` to run on device/emulator
 
-## release and sign
+## Release and sign
 1. run `gulp release-android -p <keystore password>`
 2. The apk file is at `platforms/android/ant-build/cgb.apk`
+
+## Background Audio for iOS
+1. add the supported modes in your `<Projectname>-info.plist` (in this case, `Cell Group Book-info.plist`):
+
+	<key>UIBackgroundModes</key>
+    <array>
+        <string>audio</string>
+    </array>
+
+2. import AVFoundation into your `AppDelegate.m` `#import <AVFoundation/AVFoundation.h>`
+
+3. add the following to `application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions`
+
+```objective-c
+AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+BOOL ok;
+NSError *setCategoryError = nil;
+ok = [audioSession setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
+```
+
+*It is also important to note that background audio does* **not** *work in the iOS Simulator...* **only** *on an actual device*
