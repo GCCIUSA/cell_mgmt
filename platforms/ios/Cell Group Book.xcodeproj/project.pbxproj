@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		0377B514283E4E29BC6D5FDA /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7C18EED65E43888CF69E30 /* Toast.m */; };
 		07744097423E4EC5A792EEE2 /* APPLocalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCAA1A748DA4469A8CC2D2F /* APPLocalNotification.m */; };
@@ -380,6 +381,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 510;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = 7XZWBYLFSE;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Cell Group Book" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -513,7 +519,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -526,6 +535,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Cell Group Book/Plugins/com.danielcwilson.plugins.googleanalytics\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -539,6 +549,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "Cell Group Book";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -548,7 +559,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Cell Group Book/Cell Group Book-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
@@ -559,6 +573,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Cell Group Book/Plugins/com.danielcwilson.plugins.googleanalytics\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -572,6 +587,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "Cell Group Book";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
