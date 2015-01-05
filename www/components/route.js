@@ -49,6 +49,11 @@ cgb
                     "templateUrl": setView("group/view"),
                     "controller": "GroupViewCtrl"
                 })
+                .state("group.wish", {
+                    "url": "/wish",
+                    "templateUrl": setView("group/wish"),
+                    "controller": "GroupWishCtrl"
+                })
 
                 // member
                 .state("member", {

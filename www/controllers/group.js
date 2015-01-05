@@ -104,4 +104,10 @@ cgb
             };
         }
     ])
+
+    .controller("GroupWishCtrl", ["$scope",
+        function ($scope) {
+
+        }
+    ])
 ;
