@@ -122,29 +122,31 @@ cgb
 
                             // reset birthday notification
                             // cancelAll() callback has bug, will update when it's fixed.
-                            window.plugin.notification.local.getScheduledIds(function (scheduledIds) {
-                                var member, dob, i;
+                            if (ionic.Platform.platform() !== "ios") {
+                                window.plugin.notification.local.getScheduledIds(function (scheduledIds) {
+                                    var member, dob, i;
 
-                                // cancel all existing notifications
-                                for (i = 0; scheduledIds.length > i; i++) {
-                                    window.plugin.notification.local.cancel(scheduledIds[i]);
-                                }
-
-                                // add new notifications
-                                for (i = 0; i < $rootScope.data.members.length; i++) {
-                                    member = $rootScope.data.members[i];
-                                    dob = util.toNotifyDate(member.dob);
-                                    if (dob !== null) {
-                                        window.plugin.notification.local.add({
-                                            id: i,
-                                            date: dob,
-                                            repeat: "yearly",
-                                            title: "生日提醒",
-                                            message: "今天是" + util.getMemberName(member) + "的生日！"
-                                        });
+                                    // cancel all existing notifications
+                                    for (i = 0; scheduledIds.length > i; i++) {
+                                        window.plugin.notification.local.cancel(scheduledIds[i]);
                                     }
-                                }
-                            }, function () { util.dataError(); });
+
+                                    // add new notifications
+                                    for (i = 0; i < $rootScope.data.members.length; i++) {
+                                        member = $rootScope.data.members[i];
+                                        dob = util.toNotifyDate(member.dob);
+                                        if (dob !== null) {
+                                            window.plugin.notification.local.add({
+                                                id: i,
+                                                date: dob,
+                                                repeat: "yearly",
+                                                title: "生日提醒",
+                                                message: "今天是" + util.getMemberName(member) + "的生日！"
+                                            });
+                                        }
+                                    }
+                                }, function () { util.dataError(); });
+                            }
 
                             loadComplete();
                         });
