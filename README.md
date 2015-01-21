@@ -29,7 +29,8 @@ After all requirements are met, do following:
 2. The apk file is at `platforms/android/ant-build/cgb.apk`
 
 ## Background/Streaming Audio for iOS
-(optional) add the supported modes in `<Projectname>-info.plist` (in this case, `Cell Group Book-info.plist`):
+(optional) add the supported modes in `<Projectname>-info.plist` (in this case, `Cell Group Book-info.plist`):  
+*NOTE: this may result in denial of app store review, only add if background audio is implemented*
 ```
 <key>UIBackgroundModes</key>
 <array>
