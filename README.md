@@ -29,16 +29,16 @@ After all requirements are met, do following:
 2. The apk file is at `platforms/android/ant-build/cgb.apk`
 
 ## Background/Streaming Audio for iOS
-1. (optional) add the supported modes in `<Projectname>-info.plist` (in this case, `Cell Group Book-info.plist`):
+(optional) add the supported modes in `<Projectname>-info.plist` (in this case, `Cell Group Book-info.plist`):
 ```
 <key>UIBackgroundModes</key>
 <array>
 	<string>audio</string>
 </array>
 ```
-2. import AVFoundation into `AppDelegate.m` `#import <AVFoundation/AVFoundation.h>`
+1. import AVFoundation into `AppDelegate.m` `#import <AVFoundation/AVFoundation.h>`
 
-3. add the following to `application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions`
+2. add the following to `application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions`
 
 ```objective-c
 AVAudioSession *audioSession = [AVAudioSession sharedInstance];
