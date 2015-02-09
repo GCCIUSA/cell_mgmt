@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/style.css"/>
     <script type="text/javascript" src="assets/js/script.js"></script>
 </head>
-<body ng-controller="MainCtrl">
+<body ng-controller="MainCtrl" onload="pageLoad()">
     <ion-side-menus>
         <ion-side-menu-content>
             <ion-header-bar class="bar-dark">
@@ -54,5 +54,34 @@
             </ion-footer-bar>
         </ion-side-menu>
     </ion-side-menus>
+
+    <script type="text/javascript">
+        // admob
+        function pageLoad() {
+            if ((/(ipad|iphone|ipod|android)/i.test(navigator.userAgent))) {
+                document.addEventListener("deviceready", function () {
+                    if (AdMob) {
+                        var admobid = {};
+                        if (/(android)/i.test(navigator.userAgent)) { // for android
+                            admobid = {
+                                banner: 'ca-app-pub-2108196217566007/7872968174' // or DFP format "/6253334/dfp_example_ad"
+                            };
+                        }
+                        else if (/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
+                            admobid = {
+                                banner: 'ca-app-pub-2108196217566007/1826434572' // or DFP format "/6253334/dfp_example_ad"
+                            };
+                        }
+
+                        AdMob.createBanner({
+                            adId: admobid.banner,
+                            position: AdMob.AD_POSITION.BOTTOM_CENTER,
+                            autoShow: true
+                        });
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 </html>

@@ -68,6 +68,7 @@ function initPlugins(action) {
     plugins.run(cmd + action + " https://github.com/VersoSolutions/CordovaClipboard").exec();
     plugins.run(cmd + action + " https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git").exec();
     plugins.run(cmd + action + " https://github.com/danwilson/google-analytics-plugin.git").exec();
+    plugins.run(cmd + action + " cordova plugin add com.google.cordova.admob").exec();
     plugins.run(cmd + action + " org.apache.cordova.file").exec(function () {
         plugins.run(cmd + action + " org.apache.cordova.media").exec();
     });
