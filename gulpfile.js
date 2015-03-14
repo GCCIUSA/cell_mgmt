@@ -15,7 +15,7 @@ gulp.task("js", function () {
         "www/libs/angulartics/angulartics.min.js",
         "www/libs/angulartics/angulartics-ga-cordova.js"]);
 
-    var custom = gulp.src(["www/components/*.js", "www/controllers/*.js"])
+    var custom = gulp.src(["www/components/_config.js", "www/components/route.js", "www/components/api.js", "www/components/service.js", "www/controllers/*.js"])
         .pipe(plugins.uglify({ preserveComments: "some" }));
 
     return streamqueue({ objectMode: true })

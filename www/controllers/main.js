@@ -383,7 +383,7 @@ cgb
                 $scope.content = "";
 
                 $.get(url, function (data) {
-                    var matched = data.responseText.match(/<p>([\s]*?)<\/p>([\s]*?)<p>([\s\S]*?)<br\/>([\s\S]*?)<\/p>/);
+                    var matched = data.responseText.match(/<p>([\d]*?) ([\s\S]*?)<br\/>([\d]*?) ([\s\S]*?)<\/p>/);
                     var matched_id = data.responseText.match(/<td align="center" height="25" id="tag1">([\s\S]*?)<\/td>/g);
                     var matched_date = data.responseText.match(/<td align="center" id="tag4">([\s\S]*?)<\/td>/g);
 
