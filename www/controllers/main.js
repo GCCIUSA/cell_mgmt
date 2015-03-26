@@ -402,7 +402,7 @@ cgb
                         }
 
                         $scope.$apply(function () {
-                            $scope.content = $(html.find("p").get(1)).html();
+                            $scope.content = html.html();
                             $scope.others = others;
                             if (id === null) {
                                 $scope.selectedId = $scope.others[0].id;
