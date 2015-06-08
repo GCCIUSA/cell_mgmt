@@ -22,21 +22,24 @@ After all requirements are met, do following:
 - developing using browser
     - run `gulp watch` to monitor file changes and re-compile automatically
 - developing using emulator or device
-    - run `gulp run-android` to run on device/emulator
+    - Android: run `gulp run-android` to run on device/emulator
+    - iOS: use Xcode
 
-## Release and sign
+## Android Release and sign
 1. run `gulp release-android -p <keystore password>`
 2. The apk file is at `platforms/android/ant-build/cgb.apk`
 
 ## Background/Streaming Audio for iOS
 (optional) add the supported modes in `<Projectname>-info.plist` (in this case, `Cell Group Book-info.plist`):  
-*NOTE: this may result in denial of app store review, only add if background audio is implemented*
+**NOTE: this may result in denial of app store review, only add if background audio is implemented**
 ```
 <key>UIBackgroundModes</key>
 <array>
 	<string>audio</string>
 </array>
 ```
+iOS's Safari browser does not support HTML5 audio streaming, so do following for work-around:
+
 1. import AVFoundation into `AppDelegate.m` `#import <AVFoundation/AVFoundation.h>`
 
 2. add the following to `application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions`
